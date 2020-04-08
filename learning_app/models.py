@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-class Card(db.Model):
+class Card(models.Model):
     #__tablename__ = 'cards'
 
     card_id = models.Integer()
@@ -12,7 +12,7 @@ class Card(db.Model):
     #N-new, S-short, M-medium, L-long, H-very long, W-wrong
 
 
-class Answer(db.Model):
+class Answer(models.Model):
     #__tablename__ = 'answers'
     answer_id = models.Integer()
     card_id = models.Integer()
