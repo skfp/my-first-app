@@ -6,8 +6,8 @@ class Card(models.Model):
 
     card_id = models.IntegerField(default=0)
     pile_id = models.IntegerField(default=0)
-    first_lng = models.CharField(max_length=200)
-    second_lng = models.CharField(max_length=200)
+    first_lng = models.CharField(max_length=200, default="NA")
+    second_lng = models.CharField(max_length=200, default="NA")
     card_type = models.CharField(max_length=1, default="N")
     last_good_ans = models.DateTimeField(default=timezone.now)
     #N-new, S-short, M-medium, L-long, H-very long, W-wrong
@@ -18,7 +18,7 @@ class Answer(models.Model):
     card_id_ans = models.IntegerField(default=0)
     pile_id = models.IntegerField(default=0)
     datestamp = models.DateTimeField(default=timezone.now)
-    answer = models.CharField(max_length=1)  
+    answer = models.CharField(max_length=1, default="X")
     #E-easy, M-medium, H-hard, W-wrong
 
 
