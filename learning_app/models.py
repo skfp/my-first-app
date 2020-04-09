@@ -15,7 +15,7 @@ class Card(models.Model):
 class Answer(models.Model):
     #__tablename__ = 'answers'
     answer_id = models.IntegerField()
-    card_id = models.IntegerField()
+    card_id_ans = models.IntegerField()
     pile_id = models.IntegerField()
     datestamp = models.DateTimeField(default=timezone.now)
     answer = models.CharField(max_length=1)  
