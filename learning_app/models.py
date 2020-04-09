@@ -8,7 +8,8 @@ class Card(models.Model):
     pile_id = models.IntegerField()
     first_lng = models.CharField(max_length=200)
     second_lng = models.CharField(max_length=200)
-    card_type = models.CharField(max_length=1)  
+    card_type = models.CharField(max_length=1)
+    last_good_ans = models.DateTimeField(default=timezone.now)
     #N-new, S-short, M-medium, L-long, H-very long, W-wrong
 
 class Answer(models.Model):
