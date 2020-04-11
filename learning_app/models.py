@@ -12,6 +12,13 @@ class Card(models.Model):
     last_good_ans = models.DateTimeField(default=timezone.now)
     #N-new, S-short, M-medium, L-long, H-very long, W-wrong
 
+    def publish(self):
+        self.last_good_ans = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.card_id
+
 class Answer(models.Model):
     #__tablename__ = 'answers'
     answer_id = models.IntegerField(default=0)
@@ -21,4 +28,10 @@ class Answer(models.Model):
     answer = models.CharField(max_length=1, default="X")
     #E-easy, M-medium, H-hard, W-wrong
 
+    def publish(self):
+        self.datestamp = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.answer_id
 
