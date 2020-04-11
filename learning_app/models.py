@@ -17,7 +17,7 @@ class Card(models.Model):
         self.save()
 
     def __str__(self):
-        return self.card_id
+        return self.first_lng
 
 class Answer(models.Model):
     #__tablename__ = 'answers'
@@ -33,5 +33,5 @@ class Answer(models.Model):
         self.save()
 
     def __str__(self):
-        return self.answer_id
+        return self.answer
 
