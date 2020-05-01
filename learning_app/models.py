@@ -13,11 +13,11 @@ class Card(models.Model):
     #N-new, S-short, M-medium, L-long, H-very long, W-wrong
 
     def publish(self):
-        self.last_good_ans = timezone.now()
+        #self.last_good_ans = timezone.now()
         self.save()
 
     def __str__(self):
-        return str(self.first_lng) if self.first_lng else '' 
+        return self.first_lng
 
 class Answer(models.Model):
     #__tablename__ = 'answers'
