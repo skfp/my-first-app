@@ -17,7 +17,7 @@ class Card(models.Model):
         self.save()
 
     def __str__(self):
-        return self.first_lng
+        return str(self.first_lng) if self.first_lng else '' 
 
 class Answer(models.Model):
     #__tablename__ = 'answers'
