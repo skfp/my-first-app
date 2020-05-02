@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
+<meta charset="utf-8">
+<title>Pierwsza strona</title>
+</head>
+<body>
+    <div class="my_language"><div class="my_language_inside">
+        {{card_id}}
+    </div></div>
+    <div class="foreign_language"><div class="foreign_language_inside">   
+        bbb
+        </div>
+    </div>
+    <div class="buttons_row">
+        <button class="button button_easy">Easy</button>
+        <button class="button button_normal">Medium</button>
+        <button class="button button_normal">Hard</button>
+        <button class="button button_wrong">Wrong</button>
+    </div>
+</body>
+</html>

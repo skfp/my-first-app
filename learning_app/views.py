@@ -12,7 +12,7 @@ def learn(request):
 
 def learn_a(request):
     card_id=17
-    return render(request, 'learning_app/learn.html', {'card_id': card_id})
+    return render(request, 'learning_app/learn_a.html', {'card_id': card_id})
 
 def load(request):
     virgin_data=pd.read_csv("learning_app/static/data/input.csv",sep=";")
