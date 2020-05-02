@@ -10,10 +10,11 @@ def home(request):
 def learn(request):
     return render(request, 'learning_app/learn.html', {})
 
-def learn_a(request,one_card):
+def learn_a(request):
     random_id=17
-    one_card=Card.objects.get(card_id=random_id) 
-    return render(request, 'learning_app/learn_a.html', {'one_card': one_card})
+    one_card_object=Card.objects.get(card_id=random_id) 
+    one_card= {'one_card_object': one_card_object}
+    return render(request, 'learning_app/learn_a.html', one_card)
 
 def load(request):
     virgin_data=pd.read_csv("learning_app/static/data/input.csv",sep=";")
