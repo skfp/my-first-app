@@ -10,7 +10,7 @@ def home(request):
 def learn(request):
     return render(request, 'learning_app/learn.html', {})
 
-def learn_a(request):
+def learn_a(request,card_id):
     card_id=17
     return render(request, 'learning_app/learn_a.html', {'card_id': card_id})
 
