@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
+from learning_app.models import Card
 
 # Create your views here.
 
