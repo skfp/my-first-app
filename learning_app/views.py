@@ -16,6 +16,13 @@ def learn_a(request):
     one_card= {'one_card_object': one_card_object}
     return render(request, 'learning_app/learn_a.html', one_card)
 
+def learn_q(request):
+    random_id=17
+    one_card_object=Card.objects.get(card_id=random_id) 
+    one_card= {'one_card_object': one_card_object}
+    return render(request, 'learning_app/learn_q.html', one_card)
+
+
 def load(request):
     virgin_data=pd.read_csv("learning_app/static/data/input.csv",sep=";")
     data_pl_lt=virgin_data.drop(['Unnamed: 4','Unnamed: 5','Unnamed: 6','Unnamed: 7'], axis=1)

@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
+<meta charset="utf-8">
+<title>Pierwsza strona</title>
+
+<script>
+    function ChangeButtonsToQ() { 
+                        element_q = document.querySelector('.buttons_row_inside_Q'); 
+                        element_q.style.display = 'table-cell'; 
+                        element_a = document.querySelector('.buttons_row_inside_A'); 
+                        element_a.style.display = 'none'; 
+                    }
+    function ChangeButtonsToA() { 
+                    element_q = document.querySelector('.buttons_row_inside_Q'); 
+                    element_q.style.display = 'none'; 
+                    element_a = document.querySelector('.buttons_row_inside_A'); 
+                    element_a.style.display = 'table-cell'; 
+                    element_ans = document.querySelector('.foreign_language_inside'); 
+                    element_ans.style.display = 'table-cell'; 
+                }
+    </script>
+
+</head>
+<body>
+    <div class="my_language"><div class="my_language_inside">
+        {{one_card_object.first_lng}}
+    </div></div>
+    <div class="foreign_language"><div class="foreign_language_inside" style="display:none;">     
+        {{cards.second_lng}} 
+        </div>
+    </div>
+    <div class="buttons_row_inside_Q">
+        <button class="button button_normal" onclick="ChangeButtonsToA()" id=test>Show Answer</button>
+        </div>
+        <div class="buttons_row_inside_A" style="display:none;">
+            <button class="button button_easy" onclick="ChangeButtonsToQ()">Easy</button>
+            <button class="button button_normal" onclick="ChangeButtonsToQ()">Medium</button>
+            <button class="button button_normal" onclick="ChangeButtonsToQ()">Hard</button>
+            <button class="button button_wrong" onclick="ChangeButtonsToQ()">Wrong</button>
+            <input type="submit" name="my_answer_to_q" value="E">
+            <input type="submit" name="my_answer_to_q" value="H">
+        </div>
+</body>
+</html>
