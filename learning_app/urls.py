@@ -6,6 +6,7 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('learn/', views.learn, name='learn'),
     path('load/', views.load, name='load'),
+    path('learn/<int:card_id>/a/', views.learn_a, name='learn_a'),
 ]
 
 

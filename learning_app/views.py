@@ -10,6 +10,10 @@ def home(request):
 def learn(request):
     return render(request, 'learning_app/learn.html', {})
 
+def learn_a(request):
+    card_id=17
+    return render(request, 'learning_app/learn.html', {'card_id': card_id})
+
 def load(request):
     virgin_data=pd.read_csv("learning_app/static/data/input.csv",sep=";")
     data_pl_lt=virgin_data.drop(['Unnamed: 4','Unnamed: 5','Unnamed: 6','Unnamed: 7'], axis=1)
