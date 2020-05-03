@@ -19,7 +19,8 @@ def learn_a(request):
     return render(request, 'learning_app/learn_a.html', one_card)
 
 def learn_q(request):
-    random_id=17
+    #random_id=17
+    random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
     one_card= {'one_card_object': one_card_object}
     return render(request, 'learning_app/learn_q.html', one_card)
