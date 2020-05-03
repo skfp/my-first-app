@@ -35,3 +35,12 @@ class Answer(models.Model):
     def __str__(self):
         return self.answer
 
+class User(models.Model):
+    user_id = models.IntegerField(default=0)
+    user_name = models.CharField(max_length=100, default="NA")
+    user_login = models.CharField(max_length=100, default="NA")
+    user_password = models.CharField(max_length=100, default="NA")
+    user_mail = models.CharField(max_length=100, default="NA")
+    new_left_today = models.IntegerField(default=0)
+    normal_left_today = models.IntegerField(default=0)
+    wrong_left_today = models.IntegerField(default=0)

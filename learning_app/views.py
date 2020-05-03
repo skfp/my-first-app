@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import pandas as pd
 from learning_app.models import Card
+from random import randrange
 
 # Create your views here.
 
@@ -11,7 +12,8 @@ def learn(request):
     return render(request, 'learning_app/learn.html', {})
 
 def learn_a(request):
-    random_id=17
+    #random_id=17
+    random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
     one_card= {'one_card_object': one_card_object}
     return render(request, 'learning_app/learn_a.html', one_card)
