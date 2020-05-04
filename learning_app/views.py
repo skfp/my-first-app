@@ -21,11 +21,10 @@ def learn_a(request):
 def learn_q(request):
     #random_id=17
     random_id=randrange(600)
-    one_card_object=Card.objects.get(card_id=random_id) 
-    one_card = {'one_card_object': one_card_object}
-    #one_user_object=User.objects.get(user_id=1) 
-    #one_user = {'one_user_object': one_user_object}
-    return render(request, 'learning_app/learn_q.html', one_card)#, one_user)
+    one_card_object=Card.objects.get(card_id=random_id)
+    one_user_object=User.objects.get(user_id=1) 
+    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
+    return render(request, 'learning_app/learn_q.html', one_context)
 
 
 def load(request):
