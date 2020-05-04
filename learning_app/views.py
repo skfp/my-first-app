@@ -27,6 +27,12 @@ def learn_q(request):
     return render(request, 'learning_app/learn_q.html', one_context)
 
 
+def minus_one_new(request, user_id):
+    my_user = User.objects.get(user_id=1)
+    my_user.update(new_left_today=F('new_left_today') - 1)
+    my_user.refresh_from_db()
+    return ""
+
 def load(request):
     virgin_data=pd.read_csv("learning_app/static/data/input.csv",sep=";")
     data_pl_lt=virgin_data.drop(['Unnamed: 4','Unnamed: 5','Unnamed: 6','Unnamed: 7'], axis=1)
