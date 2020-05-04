@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
-from learning_app.models import Card
+from learning_app.models import Card,User
 from random import randrange
 
 # Create your views here.
