@@ -34,3 +34,11 @@ def load(request):
         NewCardRecord.save()
     return render(request, 'learning_app/load.html', {})
 
+
+
+
+User.objects.create(user_id=1,user_name="Sylwester",user_login="sylw",
+user_password="sylw",user_mail= "lordin88@vp.pl" , 
+new_left_today=30,
+normal_left_today=30,
+wrong_left_today=10)
