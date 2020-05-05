@@ -5,15 +5,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
 <meta charset="utf-8">
 
-
-<script>
-      $.ajax({
-        type: 'POST',
-        url: '/learn/q/minus_one_new/'
-      });
-  </script>
-
-
 <title>Pierwsza strona</title>
 
 <script>
@@ -46,9 +37,7 @@
         <button class="button button_normal" onclick="ChangeButtonsToA()" id=test>Show Answer</button>
         </div>
         <div class="buttons_row_inside_A" style="display:none;">
-            <form action='minus_one_new/' method='POST'>
-                <a href=""><button class="button button_easy" onclick="ChangeButtonsToQ()">Easy</button></a>
-            </form>
+                <a href="minus_one_new"><button class="button button_easy" onclick="ChangeButtonsToQ()">Easy</button></a>
             <button class="button button_normal" onclick="ChangeButtonsToQ()">Medium</button>
             <button class="button button_normal" onclick="ChangeButtonsToQ()">Hard</button>
             <button class="button button_wrong" onclick="ChangeButtonsToQ()">Wrong</button>
