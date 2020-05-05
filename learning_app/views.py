@@ -27,11 +27,15 @@ def learn_q(request):
     return render(request, 'learning_app/learn_q.html', one_context)
 
 
-def minus_one_new(request, user_id):
+def minus_one_new(request):
     my_user = User.objects.get(user_id=1)
     my_user.update(new_left_today=F('new_left_today') - 1)
     my_user.refresh_from_db()
-    return ""
+    random_id=randrange(600)
+    one_card_object=Card.objects.get(card_id=random_id)
+    one_user_object=User.objects.get(user_id=1) 
+    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
+    return render(request, 'learning_app/learn_q.html', one_context)
 
 def load(request):
     virgin_data=pd.read_csv("learning_app/static/data/input.csv",sep=";")
