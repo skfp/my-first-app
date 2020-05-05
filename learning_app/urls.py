@@ -8,7 +8,7 @@ urlpatterns = [
     path('load/', views.load, name='load'),
     path('learn/a/', views.learn_a, name='learn_a'),
     path('learn/q/', views.learn_q, name='learn_q'),
-    path('learn/q/', views.learn_q, name='minus_one_new'),
+    path('learn/q/', views.minus_one_new, name='minus_one_new'),
 ]
 
 
