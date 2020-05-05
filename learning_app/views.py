@@ -23,7 +23,7 @@ def learn_q(request):
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id)
     one_user_object=User.objects.get(user_id=1) 
-    if one_card_object.card_type in ["N","NEW"]
+    if one_card_object.card_type in ["N","NEW"]:
         my_user = User.objects.get(user_id=1)
         my_user.new_left_today = my_user.new_left_today-1
         my_user.save()
