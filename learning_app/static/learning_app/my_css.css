@@ -80,7 +80,7 @@ div.buttons_row_inside{
     text-align: center;
     height: 5em;
     font-size: xx-large;
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
 }
 
@@ -88,7 +88,7 @@ div.buttons_row_inside_Q{
     text-align: center;
     height: 5em;
     font-size: xx-large;
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
 }
 
