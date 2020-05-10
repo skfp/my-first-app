@@ -17,8 +17,13 @@ def learn(request, previous_id, previous_ans):
         NewAnswerRecord.save()
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
-    one_card= {'one_card_object': one_card_object}
-    return render(request, 'learning_app/learn.html', one_card)
+    one_user_object=User.objects.get(user_id=1) 
+    if one_card_object.card_type in ["N","NEW"]:
+        my_user = User.objects.get(user_id=1)
+        my_user.new_left_today = my_user.new_left_today-1
+        my_user.save()
+    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
+    return render(request, 'learning_app/learn.html', one_context)
 
 def learn_a(request):
     #random_id=17
