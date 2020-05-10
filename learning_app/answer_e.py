@@ -3,7 +3,7 @@ from learning_app.models import Card,User,Answer
 import sys
 
 def add_answer():
-    NewAnswerRecord = ( answer_id=1,
+    NewAnswerRecord = Answer( answer_id=1,
     card_id_ans=1,
     pile_id=1,
     answer="E"

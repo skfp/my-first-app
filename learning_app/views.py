@@ -53,7 +53,7 @@ def load(request):
 
 
 def add_e(request):
-    NewAnswerRecord = ( answer_id=1, card_id_ans=1, pile_id=1, answer="E")
+    NewAnswerRecord = Answer( answer_id=1, card_id_ans=1, pile_id=1, answer="E")
     NewAnswerRecord.save()
 
 
