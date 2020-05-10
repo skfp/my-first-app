@@ -8,6 +8,17 @@
 <title>Pierwsza strona</title>
 
 <script>
+    function AddEasy() {          
+        var card_id = 4;
+        $.ajax({
+        type: "POST",
+        url: "answer_e.py",
+        data: { param: card_id}
+        }).done(function( o ) {
+        // do something
+        });
+    }
+
     function ChangeButtonsToQ() { 
                         element_q = document.querySelector('.buttons_row_inside_Q'); 
                         element_q.style.display = 'table-cell'; 
