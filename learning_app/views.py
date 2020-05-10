@@ -2,6 +2,7 @@ from django.shortcuts import render
 import pandas as pd
 from learning_app.models import Card,User,Answer
 from random import randrange
+from django.utils import timezone
 
 # Create your views here.
 
@@ -13,7 +14,9 @@ def home(request):
 
 def learn(request, previous_id, previous_ans):
     if previous_id>0:
-        NewAnswerRecord = Answer( answer_id=1, card_id_ans=previous_id, pile_id=1, answer=previous_ans)
+        tn=timezone.now()
+        new_id="".join([tn.year,tn.month,tn.day,tn.hour,tn.minute,tn.second])
+        NewAnswerRecord = Answer(answer_id=new_id, card_id_ans=previous_id, pile_id=1, answer=previous_ans)
         NewAnswerRecord.save()
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
