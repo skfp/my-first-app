@@ -5,6 +5,18 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
 <meta charset="utf-8">
 <title>Pierwsza strona</title>
+
+<script>
+    function ChangeButtonsToA() { 
+                    element_q = document.querySelector('.buttons_row_inside_Q'); 
+                    element_q.style.display = 'none'; 
+                    element_a = document.querySelector('.buttons_row_inside_A'); 
+                    element_a.style.display = 'table-cell'; 
+                    element_ans = document.querySelector('.foreign_language_inside'); 
+                    element_ans.style.display = 'table-cell'; 
+                }
+</script>
+
 </head>
 <body>
     <div class="my_language"><div class="my_language_inside">
