@@ -20,7 +20,10 @@
 </head>
 <body>
     <div class="my_language"><div class="my_language_inside">
-        {{one_card_object.first_lng}}   ({{one_user_object.new_left_today}})
+        {{one_card_object.first_lng}}   
+        (<div class="new_count">{{one_user_object.new_left_today}}</div>
+        <div class="normal_count">{{one_user_object.normal_left_today}}</div>
+        <div class="wrong_count">{{one_user_object.wrong_left_today}}</div>)
     </div></div>
     <div class="foreign_language"><div class="foreign_language_inside" style="display:none;">     
         {{one_card_object.second_lng}} 
@@ -31,9 +34,9 @@
         </div>
         <div class="buttons_row_inside_A" style="display:none;">
             <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='E'%}"><button class="button button_easy">Easy</button></a>
-            <button class="button button_normal">Medium</button>
-            <button class="button button_normal">Hard</button>
-            <button class="button button_wrong">Wrong</button>
+            <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='M'%}"></a><button class="button button_normal">Medium</button></a>
+            <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='H'%}"></a><button class="button button_normal">Hard</button></a>
+            <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='W'%}"></a><button class="button button_wrong">Wrong</button></a>
         </div>
 </body>
 </html>

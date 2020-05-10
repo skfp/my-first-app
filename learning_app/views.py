@@ -29,6 +29,18 @@ def learn(request, previous_id, previous_ans):
         my_user = User.objects.get(user_id=1)
         my_user.new_left_today = my_user.new_left_today-1
         my_user.save()
+    if one_card_object.card_type in ["M","H"]:
+        my_user = User.objects.get(user_id=1)
+        my_user.normal_left_today = my_user.normal_left_today-1
+        my_user.save()
+    if one_card_object.card_type = "W":
+        my_user = User.objects.get(user_id=1)
+        my_user.wrong_left_today = my_user.wrong_left_today-1
+        my_user.save()
+    if previous_ans="W":
+        my_user = User.objects.get(user_id=1)
+        my_user.wrong_left_today = my_user.wrong_left_today+1
+        my_user.save()
     one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
     return render(request, 'learning_app/learn.html', one_context)
 
