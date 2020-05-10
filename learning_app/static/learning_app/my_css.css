@@ -30,7 +30,23 @@ div.wrong_count {
     padding: 0px;
     color: red;
 }
+div.my_language_inside_left{
+    width:10%;
+    text-align: center;
+    height: 5em;
+    font-size: xx-large;
+    display: table-cell;
+    vertical-align: middle;
+}
 div.my_language_inside{
+    text-align: center;
+    height: 5em;
+    font-size: xx-large;
+    display: table-cell;
+    vertical-align: middle;
+}
+div.my_language_inside_right{
+    width:10%;
     text-align: center;
     height: 5em;
     font-size: xx-large;
@@ -44,7 +60,7 @@ div.foreign_language {
     padding: 0px;
     border-width: 0px;
     display: table;
-    background-color: lightcoral;
+    background-color: lightgoldenrodyellow;
 }
 div.foreign_language_inside{
     text-align: center;
