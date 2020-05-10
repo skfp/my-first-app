@@ -37,7 +37,8 @@ def learn(request, previous_id, previous_ans):
         my_user = User.objects.get(user_id=1)
         my_user.wrong_left_today = my_user.wrong_left_today-1
         my_user.save()
-    if previous_ans=="W":
+    #if previous_ans=="W":
+    if previous_ans:
         my_user = User.objects.get(user_id=1)
         my_user.wrong_left_today = my_user.wrong_left_today+1
         my_user.save()
