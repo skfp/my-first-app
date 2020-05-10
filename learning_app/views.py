@@ -19,7 +19,7 @@ def learn(request, previous_id, previous_ans):
         tnls=[]
         for t in tnl:
             tnls.append(str(t))
-        new_id="".join()
+        new_id="".join(tnls)
         NewAnswerRecord = Answer(answer_id=new_id, card_id_ans=previous_id, pile_id=1, answer=previous_ans)
         NewAnswerRecord.save()
     random_id=randrange(600)
