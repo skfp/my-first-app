@@ -9,6 +9,7 @@ def add_answer():
     answer="E"
     )
     NewAnswerRecord.save()
+    print("poop")
 
 
 if __name__ == "__main__":
