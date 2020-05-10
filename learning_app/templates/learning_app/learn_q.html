@@ -13,13 +13,12 @@
         var card_id = 4;
         $.ajax({
         type: "POST",
-        url: "~/Documents/my-app-sp-03/learning_app/answer_e.py",
+        url: "add_e",
+        async: false,
         data: { param: card_id}
-        }).done(function( o ) {
-        // do something
         });
     }
-    </script>
+</script>
     <script>
     function ChangeButtonsToQ() { 
                         element_q = document.querySelector('.buttons_row_inside_Q'); 
