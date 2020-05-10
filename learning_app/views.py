@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
-from learning_app.models import Card,User
+from learning_app.models import Card,User,Answer
 from random import randrange
 
 # Create your views here.
@@ -51,6 +51,10 @@ def load(request):
         NewCardRecord.save()
     return render(request, 'learning_app/load.html', {})
 
+
+def add_e(request):
+    NewAnswerRecord = ( answer_id=1, card_id_ans=1, pile_id=1, answer="E")
+    NewAnswerRecord.save()
 
 
 
