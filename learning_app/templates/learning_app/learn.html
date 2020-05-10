@@ -31,6 +31,8 @@
         {{one_card_object.second_lng}} 
         </div>
     </div>
+    <div class="buttons_row">
+    <div class="buttons_row_inside">
     <div class="buttons_row_inside_Q">
         <button class="button button_normal" onclick="ChangeButtonsToA()" id=test>Show Answer</button>
         </div>
@@ -40,5 +42,7 @@
             <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='H'%}"><button class="button button_normal">Hard</button></a>
             <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='W'%}"><button class="button button_wrong">Wrong</button></a>
         </div>
+    </div>
+    </div>
 </body>
 </html>
