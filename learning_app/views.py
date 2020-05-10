@@ -6,10 +6,19 @@ from random import randrange
 # Create your views here.
 
 def home(request):
-    return render(request, 'learning_app/home.html', {})
+    random_id=randrange(600)
+    one_card_object=Card.objects.get(card_id=random_id) 
+    one_card= {'one_card_object': one_card_object}
+    return render(request, 'learning_app/home.html', one_card)
 
-def learn(request):
-    return render(request, 'learning_app/learn.html', {})
+def learn(request, previous_id, previous_ans):
+    if previous_id>0:
+        NewAnswerRecord = Answer( answer_id=1, card_id_ans=previous_id, pile_id=1, answer=previous_ans)
+        NewAnswerRecord.save()
+    random_id=randrange(600)
+    one_card_object=Card.objects.get(card_id=random_id) 
+    one_card= {'one_card_object': one_card_object}
+    return render(request, 'learning_app/learn.html', one_card)
 
 def learn_a(request):
     #random_id=17
