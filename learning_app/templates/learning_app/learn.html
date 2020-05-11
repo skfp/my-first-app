@@ -37,10 +37,10 @@
         <button class="button button_normal" onclick="ChangeButtonsToA()" id=test>Show Answer</button>
         </div>
         <div class="buttons_row_inside_A" style="display:none;">
-            <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='E'%}"><button class="button button_easy">Easy</button></a>
-            <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='M'%}"><button class="button button_normal">Medium</button></a>
-            <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='H'%}"><button class="button button_normal">Hard</button></a>
-            <a href="{% url 'learn' previous_id=one_card_object.card_id previous_ans='W'%}"><button class="button button_wrong">Wrong</button></a>
+            <a href="{% url 'learn' pile_id=pile_id previous_id=one_card_object.card_id previous_ans='E'%}"><button class="button button_easy">Easy</button></a>
+            <a href="{% url 'learn' pile_id=pile_id previous_id=one_card_object.card_id previous_ans='M'%}"><button class="button button_normal">Medium</button></a>
+            <a href="{% url 'learn' pile_id=pile_id previous_id=one_card_object.card_id previous_ans='H'%}"><button class="button button_normal">Hard</button></a>
+            <a href="{% url 'learn' pile_id=pile_id previous_id=one_card_object.card_id previous_ans='W'%}"><button class="button button_wrong">Wrong</button></a>
         </div>
     </div>
     </div>

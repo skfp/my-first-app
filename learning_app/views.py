@@ -12,7 +12,7 @@ def home(request):
     one_card= {'one_card_object': one_card_object}
     return render(request, 'learning_app/home.html', one_card)
 
-def learn(request, previous_id, previous_ans):
+def learn(request, pile_id, previous_id, previous_ans):
     if previous_id>0:
         tn=timezone.now()
         tnl=[tn.year,tn.month,tn.day,tn.hour,tn.minute,tn.second]
@@ -41,7 +41,7 @@ def learn(request, previous_id, previous_ans):
         my_user.wrong_left_today = my_user.wrong_left_today+1
         my_user.save()
     one_user_object=User.objects.get(user_id=1) 
-    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
+    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object, 'pile_id':pile_id}
     return render(request, 'learning_app/learn.html', one_context)
 
 def learn_a(request):
