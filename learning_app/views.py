@@ -25,12 +25,18 @@ def learn(request, pile_id, previous_id, previous_ans):
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
     my_user = User.objects.get(user_id=1)
-    if my_user.new_left_today == 1 and my_user.normal_left_today+my_user.wrong_left_today == 0:
-        last_new=True
-    if my_user.normal_left_today == 1 and my_user.wrong_left_today+my_user.new_left_today == 0:
-        last_normal=True
-    if my_user.wrong_left_today == 1 and my_user.normal_left_today+my_user.new_left_today == 0:
-        last_wrong=True
+    is_last=False
+    if my_user.new_left_today + my_user.normal_left_today + my_user.wrong_left_today == 1:
+        is_last=True
+    # last_new=False
+    # last_normal=False
+    # last_wrong=False
+    # if my_user.new_left_today == 1 and my_user.normal_left_today+my_user.wrong_left_today == 0:
+    #     last_new=True
+    # if my_user.normal_left_today == 1 and my_user.wrong_left_today+my_user.new_left_today == 0:
+    #     last_normal=True
+    # if my_user.wrong_left_today == 1 and my_user.normal_left_today+my_user.new_left_today == 0:
+    #     last_wrong=True
     if one_card_object.card_type in ["N","NEW"]:
         my_user.new_left_today = my_user.new_left_today-1
         my_user.save()
@@ -44,11 +50,8 @@ def learn(request, pile_id, previous_id, previous_ans):
         my_user.wrong_left_today = my_user.wrong_left_today+1
         my_user.save()
     one_user_object=User.objects.get(user_id=1) 
-    last_new=False
-    last_normal=False
-    last_wrong=False
-    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object, 'pile_id':pile_id,
-    'last_new':last_new, 'last_normal':last_normal, 'last_wrong':last_wrong}
+    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object, 'pile_id':pile_id, 'is_last':is_last}
+#    'last_new':last_new, 'last_normal':last_normal, 'last_wrong':last_wrong}
     #if my_user.wrong_left_today == 0 and my_user.normal_left_today == 0 and my_user.new_left_today == 0:
     return render(request, 'learning_app/learn.html', one_context)
 
