@@ -24,30 +24,23 @@ def learn(request, pile_id, previous_id, previous_ans):
         NewAnswerRecord.save()
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
+    my_user = User.objects.get(user_id=1)
     if one_card_object.card_type in ["N","NEW"]:
-        my_user = User.objects.get(user_id=1)
         my_user.new_left_today = my_user.new_left_today-1
         my_user.save()
     if one_card_object.card_type in ["M","H"]:
-        my_user = User.objects.get(user_id=1)
         my_user.normal_left_today = my_user.normal_left_today-1
         my_user.save()
     if one_card_object.card_type == "W":
-        my_user = User.objects.get(user_id=1)
         my_user.wrong_left_today = my_user.wrong_left_today-1
         my_user.save()
     if previous_ans=="W":
-        my_user = User.objects.get(user_id=1)
         my_user.wrong_left_today = my_user.wrong_left_today+1
         my_user.save()
     one_user_object=User.objects.get(user_id=1) 
     one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object, 'pile_id':pile_id}
     #if my_user.wrong_left_today == 0 and my_user.normal_left_today == 0 and my_user.new_left_today == 0:
-    if my_user.wrong_left_today == 40 and my_user.normal_left_today == 30 and my_user.new_left_today == -120:
-        to_be_rendered='learning_app/end.html'
-    else:
-        to_be_rendered='learning_app/learn.html'
-    return render(request, to_be_rendered, one_context)
+    return render(request, 'learning_app/learn.html', one_context)
 
 def learn_a(request):
     #random_id=17
@@ -55,6 +48,9 @@ def learn_a(request):
     one_card_object=Card.objects.get(card_id=random_id) 
     one_card= {'one_card_object': one_card_object}
     return render(request, 'learning_app/learn_a.html', one_card)
+
+def end(request):
+    return render(request, 'learning_app/end.html', {})
 
 def learn_q(request):
     #random_id=17
