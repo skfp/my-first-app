@@ -37,7 +37,7 @@
         <button class="button button_normal" onclick="ChangeButtonsToA()" id=test>Show Answer</button>
         </div>
         <div class="buttons_row_inside_A" style="display:none;">
-            {% if one_user_object.new_left_today+one_user_object.normal_left_today==0 and one_user_object.wrong_left_today==1 %}
+            {% if one_user_object.new_left_today==0 and one_user_object.normal_left_today==0 and one_user_object.wrong_left_today==1 %}
             <a href="{% url 'end' %}"><button class="button button_easy">Easy</button></a>
             {% else %}
             <a href="{% url 'learn' pile_id=pile_id previous_id=one_card_object.card_id previous_ans='E'%}"><button class="button button_easy">Easy</button></a>
