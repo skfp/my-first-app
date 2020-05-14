@@ -7,6 +7,14 @@ from django.utils import timezone
 # Create your views here.
 
 def home(request):
+    #random_id=randrange(600)
+    #one_card_object=Card.objects.get(card_id=random_id) 
+    #one_card= {'one_card_object': one_card_object}
+    #my_piles=[1,2]
+    return render(request, 'learning_app/home.html', {})
+
+
+def start(request):
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
     one_card= {'one_card_object': one_card_object}
