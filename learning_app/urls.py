@@ -12,7 +12,7 @@ urlpatterns = [
     path('learn/q/minus_one_new/', views.minus_one_new, name='minus_one_new'),
     path('add_e/', views.add_e, name='add_e'),
     path('end/', views.end, name='end'),
-    path('start/', views.start, name='start'),
+    path('start/<int:pile_id>/', views.start, name='start'),
 ]
 
 

@@ -10,8 +10,11 @@ def home(request):
     #random_id=randrange(600)
     #one_card_object=Card.objects.get(card_id=random_id) 
     #one_card= {'one_card_object': one_card_object}
+    user_id=1
+    pile_list=Pile.objects.filter(user_id=1)
+    pile_list_dict={'pile_list':pile_list}
     #my_piles=[1,2]
-    return render(request, 'learning_app/home.html', {})
+    return render(request, 'learning_app/home.html', pile_list_dict)
 
 
 def start(request):
