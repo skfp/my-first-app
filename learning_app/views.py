@@ -3,6 +3,7 @@ import pandas as pd
 from learning_app.models import Card,User,Answer,Pile
 from random import randrange
 from django.utils import timezone
+from datetime import date
 #from datetime import datetime,timedelta
 
 # Create your views here.
