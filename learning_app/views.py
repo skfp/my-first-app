@@ -7,13 +7,9 @@ from django.utils import timezone
 # Create your views here.
 
 def home(request):
-    #random_id=randrange(600)
-    #one_card_object=Card.objects.get(card_id=random_id) 
-    #one_card= {'one_card_object': one_card_object}
     user_id=1
     pile_list=Pile.objects.filter(user_id=1)
     pile_list_dict={'pile_list':pile_list}
-    #my_piles=[1,2]
     return render(request, 'learning_app/home.html', pile_list_dict)
 
 
@@ -53,7 +49,7 @@ def learn(request, pile_id, previous_id, previous_ans):
         my_pile.wrong_left_today = my_pile.wrong_left_today+1
         my_pile.save()
     one_pile_object=Pile.objects.get(pile_id=pile_id)
-    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last}
+    one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last}
 #   return render(request, 'learning_app/learn.html', one_context)
 
 def learn_a(request):
