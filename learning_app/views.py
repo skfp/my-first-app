@@ -43,7 +43,7 @@ def learn(request, pile_id, previous_id, previous_ans):
     possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
     #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id) 
     count_possible=len(possible_cards_new_wrong)+len(possible_cards_normal)
-    if randrange(count_possible)<possible_cards_new_wrong:
+    if randrange(count_possible)<len(possible_cards_new_wrong):
         id_list=[x.card_id for x in possible_cards_new_wrong]
         random_id=randrange(len(possible_cards_new_wrong))
     else:
