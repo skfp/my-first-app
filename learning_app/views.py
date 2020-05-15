@@ -36,36 +36,25 @@ def learn(request, pile_id, previous_id, previous_ans):
         NewAnswerRecord.save()
     random_id=randrange(8)+1
     one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id) 
-    my_user = User.objects.get(user_id=1)
+    my_pile = Pile.objects.get(pile_id=pile_id)
     is_last=False
-    if my_user.new_left_today + my_user.normal_left_today + my_user.wrong_left_today == 1:
+    if my_pile.new_left_today + my_pile.normal_left_today + my_pile.wrong_left_today == 1:
         is_last=True
-    # last_new=False
-    # last_normal=False
-    # last_wrong=False
-    # if my_user.new_left_today == 1 and my_user.normal_left_today+my_user.wrong_left_today == 0:
-    #     last_new=True
-    # if my_user.normal_left_today == 1 and my_user.wrong_left_today+my_user.new_left_today == 0:
-    #     last_normal=True
-    # if my_user.wrong_left_today == 1 and my_user.normal_left_today+my_user.new_left_today == 0:
-    #     last_wrong=True
     if one_card_object.card_type in ["N","NEW"]:
-        my_user.new_left_today = my_user.new_left_today-1
-        my_user.save()
+        my_pile.new_left_today = my_pile.new_left_today-1
+        my_pile.save()
     if one_card_object.card_type in ["M","H"]:
-        my_user.normal_left_today = my_user.normal_left_today-1
-        my_user.save()
+        my_pile.normal_left_today = my_pile.normal_left_today-1
+        my_pile.save()
     if one_card_object.card_type == "W":
-        my_user.wrong_left_today = my_user.wrong_left_today-1
-        my_user.save()
+        my_pile.wrong_left_today = my_pile.wrong_left_today-1
+        my_pile.save()
     if previous_ans=="W":
-        my_user.wrong_left_today = my_user.wrong_left_today+1
-        my_user.save()
-    one_user_object=User.objects.get(user_id=1) 
-    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object, 'pile_id':pile_id, 'is_last':is_last}
-#    'last_new':last_new, 'last_normal':last_normal, 'last_wrong':last_wrong}
-    #if my_user.wrong_left_today == 0 and my_user.normal_left_today == 0 and my_user.new_left_today == 0:
-    return render(request, 'learning_app/learn.html', one_context)
+        my_pile.wrong_left_today = my_pile.wrong_left_today+1
+        my_pile.save()
+    one_pile_object=Pile.objects.get(pile_id=pile_id)
+    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last}
+#   return render(request, 'learning_app/learn.html', one_context)
 
 def learn_a(request):
     #random_id=17

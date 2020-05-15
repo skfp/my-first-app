@@ -49,6 +49,10 @@ class Pile(models.Model):
     pile_id = models.IntegerField(default=0)
     pile_name = models.CharField(max_length=100, default="NA")
     user_id = models.IntegerField(default=0)
+    new_left_today = models.IntegerField(default=0)
+    normal_left_today = models.IntegerField(default=0)
+    wrong_left_today = models.IntegerField(default=0)
+    new_per_day = models.IntegerField(default=30)
 
     def __str__(self):
         return self.pile_name
