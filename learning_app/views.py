@@ -31,10 +31,11 @@ def learn(request, pile_id, previous_id, previous_ans):
         new_id="".join(tnls)
         NewAnswerRecord = Answer(answer_id=new_id, card_id_ans=previous_id, pile_id=pile_id, answer=previous_ans)
         NewAnswerRecord.save()
-    #random_id=randrange(8)+1
-    previous_card_object=Card.objects.get(card_id=previous_id, pile_id=pile_id) 
+        previous_card_object=Card.objects.get(card_id=previous_id, pile_id=pile_id) 
+    
     my_pile = Pile.objects.get(pile_id=pile_id)
     is_last=False
+    #random_id=randrange(8)+1
     
     #possible_cards: nowe + zle + zwykle_z_dzisiejsza_data      datetime.date(2005, 1, 1))
     possible_cards_new_wrong=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N","W"]) 
