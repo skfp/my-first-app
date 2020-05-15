@@ -10,6 +10,7 @@ class Card(models.Model):
     second_lng = models.CharField(max_length=200, default="NA")
     card_type = models.CharField(max_length=1, default="N")
     last_good_ans = models.DateTimeField(default=timezone.now)
+    next_learn_date = models.DateTimeField(default=timezone.now)
     #N-new, S-short, M-medium, L-long, H-very long, W-wrong
 
     def publish(self):
