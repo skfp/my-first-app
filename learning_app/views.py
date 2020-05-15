@@ -43,7 +43,8 @@ def learn(request, pile_id, previous_id, previous_ans):
     possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
     possible_cards_wrong=Card.objects.filter(pile_id=pile_id,card_type="W") 
     #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id)
-    count_new=max(0,len(possible_cards_new))
+    #count_new=max(0,len(possible_cards_new))
+    count_new=min(my_pile.new_left_today,len(possible_cards_new))
     count_normal=len(possible_cards_normal)
     count_wrong=len(possible_cards_wrong)
     count_possible=count_new+count_normal+count_wrong
