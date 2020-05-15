@@ -39,16 +39,24 @@ def learn(request, pile_id, previous_id, previous_ans):
     #random_id=randrange(8)+1
     
     #possible_cards: nowe + zle + zwykle_z_dzisiejsza_data      datetime.date(2005, 1, 1))
-    possible_cards_new_wrong=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N","W"]) 
+    possible_cards_new=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N"]) 
     possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
-    #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id) 
-    count_possible=len(possible_cards_new_wrong)+len(possible_cards_normal)
-    if randrange(count_possible)<len(possible_cards_new_wrong):
-        id_list=[x.card_id for x in possible_cards_new_wrong]
-        random_id=randrange(len(possible_cards_new_wrong))
-    else:
+    possible_cards_wrong=Card.objects.filter(pile_id=pile_id,card_type="W") 
+    #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id)
+    count_new=max(0,len(possible_cards_new))
+    count_normal=len(possible_cards_normal)
+    count_wrong=len(possible_cards_wrong)
+    count_possible=count_new+count_normal+count_wrong
+    random_number=randrange(count_possible)
+    if random_number + 1 <= count_new:
+        id_list=[x.card_id for x in possible_cards_new]
+        random_id=id_list[randrange(len(possible_cards_new))]
+    elif count_normal + count_new >= random_number + 1 > count_new:
         id_list=[x.card_id for x in possible_cards_normal]
-        random_id=randrange(len(possible_cards_normal))
+        random_id=id_list[randrange(len(possible_cards_normal))]
+    else:
+        id_list=[x.card_id for x in possible_cards_wrong]
+        random_id=id_list[randrange(len(possible_cards_wrong))]
     one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id)
 
     if my_pile.new_left_today + my_pile.normal_left_today + my_pile.wrong_left_today == 1:
