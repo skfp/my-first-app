@@ -50,7 +50,7 @@ def learn(request, pile_id, previous_id, previous_ans):
         my_pile.save()
     one_pile_object=Pile.objects.get(pile_id=pile_id)
     one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last}
-#   return render(request, 'learning_app/learn.html', one_context)
+    return render(request, 'learning_app/learn.html', one_context)
 
 def learn_a(request):
     #random_id=17
