@@ -22,7 +22,7 @@ def start(request,pile_id):
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
     one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id}
-    return render(request, 'learning_app/home.html', one_card)
+    return render(request, 'learning_app/start.html', one_card)
 
 def learn(request, pile_id, previous_id, previous_ans):
     if previous_id>0:
