@@ -37,7 +37,7 @@ def learn(request, pile_id, previous_id, previous_ans):
     is_last=False
     
     #possible_cards: nowe + zle + zwykle_z_dzisiejsza_data      datetime.date(2005, 1, 1))
-    possible_cards_new_wrong=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N","W") 
+    possible_cards_new_wrong=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N","W"]) 
     possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
     #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id) 
     count_possible=len(possible_cards_new_wrong)+len(possible_cards_normal)
