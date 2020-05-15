@@ -31,7 +31,7 @@ def learn(request, pile_id, previous_id, previous_ans):
         NewAnswerRecord = Answer(answer_id=new_id, card_id_ans=previous_id, pile_id=pile_id, answer=previous_ans)
         NewAnswerRecord.save()
     random_id=randrange(8)+1
-    one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id) 
+    previous_card_object=Card.objects.get(card_id=previous_id, pile_id=pile_id) 
     my_pile = Pile.objects.get(pile_id=pile_id)
     is_last=False
     if my_pile.new_left_today + my_pile.normal_left_today + my_pile.wrong_left_today == 1:
@@ -48,6 +48,24 @@ def learn(request, pile_id, previous_id, previous_ans):
     if previous_ans=="W":
         my_pile.wrong_left_today = my_pile.wrong_left_today+1
         my_pile.save()
+        previous_card_object.card_type="W"
+        previous_card_object.next_learn_date=timezone.now()
+    if previous_ans=="E":
+        my_pile.wrong_left_today = my_pile.wrong_left_today+1
+        my_pile.save()
+        previous_card_object.card_type="L"
+        previous_card_object.next_learn_date=timezone.now() + timezone.timedelta(days=7)
+    if previous_ans=="M":
+        my_pile.wrong_left_today = my_pile.wrong_left_today+1
+        my_pile.save()
+        previous_card_object.card_type="M"
+        previous_card_object.next_learn_date=timezone.now() + timezone.timedelta(days=4)
+    if previous_ans=="H":
+        my_pile.wrong_left_today = my_pile.wrong_left_today+1
+        my_pile.save()
+        previous_card_object.card_type="S"
+        previous_card_object.next_learn_date=timezone.now() + timezone.timedelta(days=2)
+    one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id) 
     one_pile_object=Pile.objects.get(pile_id=pile_id)
     one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last}
     return render(request, 'learning_app/learn.html', one_context)
