@@ -74,20 +74,25 @@ def learn(request, pile_id, previous_id, previous_ans):
     if previous_ans=="W":
         my_pile.wrong_left_today = my_pile.wrong_left_today+1
         my_pile.save()
+        next_tz=timezone.now()
         previous_card_object.card_type="W"
-        previous_card_object.next_learn_date=timezone.now()
+        previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+        previous_card_object.save()
     if previous_ans=="E":
         previous_card_object.card_type="L"
         next_tz=timezone.now() + timezone.timedelta(days=7)
         previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+        previous_card_object.save()
     if previous_ans=="M":
         previous_card_object.card_type="M"
         next_tz=timezone.now() + timezone.timedelta(days=4)
         previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+        previous_card_object.save()
     if previous_ans=="H":
         previous_card_object.card_type="S"
         next_tz=timezone.now() + timezone.timedelta(days=2)
         previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+        previous_card_object.save()
     one_pile_object=Pile.objects.get(pile_id=pile_id)
     one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last}
     return render(request, 'learning_app/learn.html', one_context)
