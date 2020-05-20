@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
-from learning_app.models import Card,User,Answer,Pile
+from learning_app.models import Card,User,Answer,Pile,ExcelFile
 from random import randrange
 from django.utils import timezone
 from datetime import date

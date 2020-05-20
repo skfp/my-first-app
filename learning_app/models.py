@@ -60,3 +60,7 @@ class Pile(models.Model):
         return self.pile_name
 
 
+class ExcelFile(models.Model):
+    csv_file=forms.FileField(upload_to='static/data/') 
+
+
