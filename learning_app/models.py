@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import date
+from django import forms
 
 class Card(models.Model):
     #__tablename__ = 'cards'
