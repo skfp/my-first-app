@@ -154,9 +154,7 @@ def load_eng(request):
 #    NewAnswerRecord.save()
 
 def upload(request):
-
-
-def load_any(request):
+#def load_any(request):
     #virgin_data=pd.read_csv("learning_app/static/data/input_eng.csv",sep=";")
     data_pl_lt=virgin_data.drop(['Unnamed: 4','Unnamed: 5','Unnamed: 6','Unnamed: 7'], axis=1)
     for i in range(data_pl_lt.shape[0]):
