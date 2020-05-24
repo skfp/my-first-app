@@ -13,6 +13,6 @@ urlpatterns = [
     #path('add_e/', views.add_e, name='add_e'),
     path('end/', views.end, name='end'),
     path('start/<int:pile_id>/', views.start, name='start'),
-] +static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+] #+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 
