@@ -169,10 +169,17 @@ def load_eng(request):
 #    return render(request, 'learning_app/load_any.html', {})
 
 def handle_uploaded_file(f):
+    max_of_piles=0
+    list_of_piles=Pile.objects.all()
+    for p in list_of_piles:
+        if p.pile_id>max_of_piles:
+            max_of_piles=p.pile_id
+    NewPileRecord = Pile(pile_id=max_of_piles+1,pile_name="NewName",user_id=1,new_left_today=30,normal_left_today=0,wrong_left_today=0,new_per_day=0)
+    NewPileRecord.save()
     virgin_data=pd.read_csv("learning_app/static/data/name.csv",sep=";")
     data_pl_lt=virgin_data.drop(['Unnamed: 4','Unnamed: 5','Unnamed: 6','Unnamed: 7'], axis=1)
     for i in range(data_pl_lt.shape[0]):
-        NewCardRecord = Card(card_id = data_pl_lt['id'][i],pile_id = 2,first_lng=data_pl_lt['pl'][i],second_lng= data_pl_lt['eng'][i],card_type=data_pl_lt['class'][i])
+        NewCardRecord = Card(card_id = data_pl_lt['id'][i],pile_id = 3,first_lng=data_pl_lt['pl'][i],second_lng= data_pl_lt['eng'][i],card_type=data_pl_lt['class'][i])
         NewCardRecord.save()
 
 def upload(request):
