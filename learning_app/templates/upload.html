@@ -1,0 +1,13 @@
+<html>
+<body>
+    <p>Loaded</p>
+    <p></p>
+    <a href="/start/">Start</a>
+
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="submit"/>
+        </form>
+</body>
+</html>
