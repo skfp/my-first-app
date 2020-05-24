@@ -7,7 +7,7 @@ from datetime import date
 from django import forms
 #from datetime import datetime,timedelta
 
-from .forms import UploadFileForm
+from forms import UploadFileForm
 
 # Imaginary function to handle an uploaded file.
 #from somewhere import handle_uploaded_file

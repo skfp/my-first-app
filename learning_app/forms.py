@@ -1,9 +1,5 @@
 from django import forms
 
-class ExcelUploadForm(forms.Form):
-    csv_file=forms.FileField(label="select a file with words list")
-
-
-
-
-#(upload_to('static/data/')) 
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
