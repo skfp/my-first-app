@@ -169,7 +169,7 @@ def load_eng(request):
 #        NewCardRecord.save()
 #    return render(request, 'learning_app/load_any.html', {})
 
-def handle_uploaded_file(f):
+def handle_uploaded_file(title,f):
     max_of_piles=0
     list_of_piles=Pile.objects.all()
     for p in list_of_piles:
@@ -180,14 +180,14 @@ def handle_uploaded_file(f):
     for i in range(data_pl_lt.shape[0]):
         NewCardRecord = Card(card_id = data_pl_lt['id'][i],pile_id = max_of_piles+1,first_lng=data_pl_lt['pl'][i],second_lng= data_pl_lt['eng'][i],card_type=data_pl_lt['class'][i])
         NewCardRecord.save()
-    NewPileRecord = Pile(pile_id=max_of_piles+1,pile_name="NewName",user_id=1,new_left_today=30,normal_left_today=0,wrong_left_today=0,new_per_day=0)
+    NewPileRecord = Pile(pile_id=max_of_piles+1,pile_name=title,user_id=1,new_left_today=30,normal_left_today=0,wrong_left_today=0,new_per_day=0)
     NewPileRecord.save()
 
 def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
+            handle_uploaded_file(request.POST['title'],request.FILES['file'])
             return HttpResponseRedirect('/home/')
     else:
         form = UploadFileForm()
