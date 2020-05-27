@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
-from learning_app.models import Card,User,Answer,Pile#,ExcelFile
+from learning_app.models import Card,AppUser,Answer,Pile#,ExcelFile
 from random import randrange
 from django.utils import timezone
 from datetime import date
@@ -118,9 +118,9 @@ def learn_q(request):
     #random_id=17
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id)
-    one_user_object=User.objects.get(user_id=1) 
+    one_user_object=AppUser.objects.get(user_id=1) 
     if one_card_object.card_type in ["N","NEW"]:
-        my_user = User.objects.get(user_id=1)
+        my_user = AppUser.objects.get(user_id=1)
         my_user.new_left_today = my_user.new_left_today-1
         my_user.save()
     one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
@@ -128,14 +128,14 @@ def learn_q(request):
 
 
 def minus_one_new(request):
-    my_user = User.objects.get(user_id=1)
+    my_user = AppUser.objects.get(user_id=1)
     #my_user.update(new_left_today=F('new_left_today') - 1)
     #my_user.refresh_from_db()
     my_user.new_left_today = my_user.new_left_today-1
     my_user.save()
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id)
-    one_user_object=User.objects.get(user_id=1) 
+    one_user_object=AppUser.objects.get(user_id=1) 
     one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
     return render(request, 'learning_app/learn_q.html', one_context)
 

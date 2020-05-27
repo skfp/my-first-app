@@ -38,7 +38,7 @@ class Answer(models.Model):
     def __str__(self):
         return self.answer
 
-class User(models.Model):
+class AppUser(models.Model):
     user_id = models.IntegerField(default=0)
     user_name = models.CharField(max_length=100, default="NA")
     user_login = models.CharField(max_length=100, default="NA")
