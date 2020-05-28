@@ -6,6 +6,7 @@ from django.utils import timezone
 from datetime import date
 from django import forms
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 #from datetime import datetime,timedelta
 
 from .forms import UploadFileForm
@@ -194,5 +195,15 @@ def upload(request):
     return render(request, 'upload.html', {'form': form})
 
 
+def create_user(mail,login,password):
+    user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
+
+
+def user_created(request):
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST, request.POST, request.POST)
+        if form.is_valid():
+            create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
+            return HttpResponseRedirect('/home/')
 
 
