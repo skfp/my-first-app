@@ -199,11 +199,13 @@ def create_user(mail,login,password):
     user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
 
 
-def user_created(request):
+def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST, request.POST, request.POST)
         if form.is_valid():
             create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
             return HttpResponseRedirect('/home/')
-
+    else:
+        form = UploadFileForm()
+    return render(request, 'register.html', {'form': form})
 
