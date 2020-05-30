@@ -14,7 +14,7 @@ urlpatterns = [
     path('end/', views.end, name='end'),
     #path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
-    #path('user_created/', views.user_created, name='user_created'),
+    path('user_created/', views.user_created, name='user_created'),
     path('start/<int:pile_id>/', views.start, name='start'),
 ] #+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
