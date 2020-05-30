@@ -208,6 +208,6 @@ def register(request):
             create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
             return HttpResponseRedirect('/home/')
     else:
-        form = UploadFileForm()
+        form = CreateUserForm()
     return render(request, 'register.html', {'form': form})
 
