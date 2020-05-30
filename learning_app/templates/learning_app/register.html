@@ -1,6 +1,7 @@
 <html>
 <body>
     <form action="/user_created/" method="post">
+        {% csrf_token %}
         <label for="your_mail">Mail: </label>
         <input id="your_mail" type="text" name="your_mail" value="">
         <br>
