@@ -8,8 +8,9 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 #from datetime import datetime,timedelta
+from django.views.decorators.csrf import csrf_protect
 
-from .forms import UploadFileForm
+from .forms import UploadFileForm, CreateUserForm
 
 # Imaginary function to handle an uploaded file.
 #from somewhere import handle_uploaded_file
@@ -201,6 +202,7 @@ def create_user(mail,login,password):
 def user_created(request):
     return render(request, 'user_created.html')
 
+@csrf_protect
 def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST, request.POST, request.POST)
