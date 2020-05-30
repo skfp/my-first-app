@@ -198,6 +198,8 @@ def upload(request):
 def create_user(mail,login,password):
     user = User.objects.create_user(login, mail, password)
 
+def user_created(request):
+    return render(request, 'user_created.html')
 
 def register(request):
     if request.method == 'POST':
