@@ -205,7 +205,7 @@ def user_created(request):
 @csrf_protect
 def register(request):
     if request.method == 'POST':
-        form = CreateUserForm(request.POST, request.POST, request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
             return HttpResponseRedirect('/user_created/')
