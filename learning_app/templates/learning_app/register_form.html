@@ -1,4 +1,4 @@
-{% extends upload.html%}
+{% extends register.html%}
 {% block content %}
 <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
 {% csrf_token %}
