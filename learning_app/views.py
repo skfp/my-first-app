@@ -208,7 +208,7 @@ def register(request):
         form = CreateUserForm(request.POST, request.POST, request.POST)
         if form.is_valid():
             create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
-            return HttpResponseRedirect('/home/')
+            return HttpResponseRedirect('/user_created/')
     else:
         form = CreateUserForm()
     return render(request, 'register.html', {'form': form})
