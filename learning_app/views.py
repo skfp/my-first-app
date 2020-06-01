@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import pandas as pd
 from learning_app.models import Card,AppUser,Answer,Pile#,ExcelFile
 from random import randrange
@@ -6,9 +6,12 @@ from django.utils import timezone
 from datetime import date
 from django import forms
 from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
 #from datetime import datetime,timedelta
 from django.views.decorators.csrf import csrf_protect
+
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 from .forms import UploadFileForm, CreateUserForm
 
