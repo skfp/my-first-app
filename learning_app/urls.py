@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from mysite01.learning_app import views as core_views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -17,7 +16,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('user_created/', views.user_created, name='user_created'),
     path('start/<int:pile_id>/', views.start, name='start'),
-    url(r'^signup/$', core_views.signup, name='signup'),
 ] #+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 
