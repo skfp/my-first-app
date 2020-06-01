@@ -207,8 +207,15 @@ def register(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
-            return HttpResponseRedirect('/user_created/')
+            form.save()
+            username = form.cleaned_data.get('your_login')
+            raw_password = form.cleaned_data.get('your_pass')
+            #mail = form.cleaned_data.get('your_mail')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+            #create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
+            #return HttpResponseRedirect('/user_created/')
     else:
         form = CreateUserForm()
     return render(request, 'register.html', {'form': form})
