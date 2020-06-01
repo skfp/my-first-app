@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from mysite.core import views as core_views
+from mysite01.learning_app import views as core_views
 
 urlpatterns = [
     path('', views.home, name='home'),
