@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 
-from .forms import UploadFileForm, CreateUserForm
+from .forms import UploadFileForm#, CreateUserForm
 
 # Imaginary function to handle an uploaded file.
 #from somewhere import handle_uploaded_file
