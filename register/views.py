@@ -13,6 +13,6 @@ def register(response):
         return redirect("/home")
     else:
     	form = RegisterForm()
-    UserManager.create_user(form.username,form.email,form.password)
+    UserManager.create_user(form.your_name,form.your_mail,form.your_pass)
 
     return render(response, "register/register.html", {"form":form})
