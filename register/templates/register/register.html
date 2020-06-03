@@ -1,16 +1,12 @@
 {% extends "learning_app/base.html" %}
 
 {% block title %}Create an Account{% endblock %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <form method="POST" class="form-group">
 	{% csrf_token %}
-        <label for="your_mail">Login: </label>
-        <input id="your_mail" type="text" name="your_mail" value="">
-        <label for="your_login">Login: </label>
-        <input id="your_login" type="text" name="your_login" value="">
-        <label for="your_pass">Login: </label>
-        <input id="your_pass" type="text" name="your_pass" value="">
+	{{ form|crispy }}
 	<button type="submit" class="btn btn-success">Register</button>
     </form>
 {% endblock %}
