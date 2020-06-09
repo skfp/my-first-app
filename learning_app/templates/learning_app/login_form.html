@@ -1,6 +1,6 @@
 {% extends login.html%}
 {% block content %}
-<form action="{% url 'login_view' %}" method="post" enctype="multipart/form-data" name="LoginForm">
+<form action="{% url 'login_view' %}" method="get" enctype="multipart/form-data" name="LoginForm">
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="submit"/>

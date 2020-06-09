@@ -247,8 +247,8 @@ def login_view(request):
     if request.method == 'GET':
         form = LoginForm(request.GET)
         if form.is_valid():
-            handle_login(request.GET['username'],request.GET['password'])
-            #return HttpResponseRedirect('/home/')
+            #handle_login(request.GET['username'],request.GET['password'])
+            return HttpResponseRedirect('/home/')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
