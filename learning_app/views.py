@@ -245,12 +245,12 @@ def register(request):
 
 def login(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             handle_login(request.POST['username'],request.POST['password'])
             #return HttpResponseRedirect('/home/')
     else:
-        form = UploadFileForm()
+        form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
 
