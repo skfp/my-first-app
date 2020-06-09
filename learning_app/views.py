@@ -225,20 +225,22 @@ def register(request):
 
 
 def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    our_user=AppUser.objects.filter(user_name=username)
-    our_user_id=our_user.user_id
-    if user is not None:
-        login(request, user)
-        # Redirect to a success page.
-        success_page=str(our_user_id)+'/'+'choose/'+'/'
-        return HttpResponseRedirect(success_page)
-    else:
-        # Return an 'invalid login' error message.
-        ...
-        return HttpResponseRedirect('/home/')
+    if request.method == 'GET':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        our_user=AppUser.objects.filter(user_name=username)
+        our_user_id=our_user.user_id
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page.
+            success_page=str(our_user_id)+'/'+'choose/'+'/'
+            return HttpResponseRedirect(success_page)
+        else:
+            # Return an 'invalid login' error message.
+            ...
+            return HttpResponseRedirect('/home/')
+    return HttpResponseRedirect('/home/')
 
 def choose(request,user_id):
     #user_id=1
