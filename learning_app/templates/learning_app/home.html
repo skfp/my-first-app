@@ -8,6 +8,8 @@
     <br>
     <a href="{% url 'register' %}">Register</a>
     <br>
+    <a href="{% url 'login' %}">Register</a>
+    <br>
     Choose your pile:
     {% for p in pile_list %}
     <a href="{% url 'start' pile_id=p.pile_id %}">{{p.pile_name}}</a>
