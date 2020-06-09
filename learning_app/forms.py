@@ -7,6 +7,11 @@ class UploadFileForm(forms.Form):
     file = forms.FileField()
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    password = forms.CharField(max_length=50)
+
+
 #class CreateUserForm(forms.Form):
 #    your_mail = forms.EmailField(max_length=80)
 #    your_login = forms.CharField(max_length=20)

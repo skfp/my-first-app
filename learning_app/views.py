@@ -234,7 +234,6 @@ def login(request):
         login(request, user)
         # Redirect to a success page.
         success_page=str(our_user_id)+'/'+'choose/'+'/'
-        ...
         return HttpResponseRedirect(success_page)
     else:
         # Return an 'invalid login' error message.
