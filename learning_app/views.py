@@ -226,8 +226,8 @@ def register(request):
 
 def login(request):
     if request.method == 'GET':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.GET['username']
+        password = request.GET['password']
         user = authenticate(request, username=username, password=password)
         our_user=AppUser.objects.filter(user_name=username)
         our_user_id=our_user.user_id
