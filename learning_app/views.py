@@ -224,23 +224,48 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 
+# def login(request):
+#     if request.method == 'GET':
+#         username = request.GET['username']
+#         password = request.GET['password']
+#         user = authenticate(request, username=username, password=password)
+#         our_user=AppUser.objects.filter(user_name=username)
+#         our_user_id=our_user.user_id
+#         if user is not None:
+#             login(request, user)
+#             # Redirect to a success page.
+#             success_page=str(our_user_id)+'/'+'choose/'+'/'
+#             return HttpResponseRedirect(success_page)
+#         else:
+#             # Return an 'invalid login' error message.
+#             ...
+#             return HttpResponseRedirect('/home/')
+#     return HttpResponseRedirect('/home/')
+
+
 def login(request):
-    if request.method == 'GET':
-        username = request.GET['username']
-        password = request.GET['password']
-        user = authenticate(request, username=username, password=password)
-        our_user=AppUser.objects.filter(user_name=username)
-        our_user_id=our_user.user_id
-        if user is not None:
-            login(request, user)
-            # Redirect to a success page.
-            success_page=str(our_user_id)+'/'+'choose/'+'/'
-            return HttpResponseRedirect(success_page)
-        else:
-            # Return an 'invalid login' error message.
-            ...
-            return HttpResponseRedirect('/home/')
-    return HttpResponseRedirect('/home/')
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST)
+        if form.is_valid():
+            handle_login(request.POST['username'],request.POST['password'])
+            #return HttpResponseRedirect('/home/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'login.html', {'form': form})
+
+
+def handle_login(u,p):
+    user = authenticate(request, username=username, password=password)
+    our_user=AppUser.objects.filter(user_name=username)
+    our_user_id=our_user.user_id
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+        success_page=str(our_user_id)+'/'+'choose/'+'/'
+        return HttpResponseRedirect(success_page)
+    else:
+        # Return an 'invalid login' error message.
+        return HttpResponseRedirect('/home/')
 
 def choose(request,user_id):
     #user_id=1
