@@ -233,7 +233,7 @@ def login(request):
     if user is not None:
         login(request, user)
         # Redirect to a success page.
-        success_page='/'+str(our_user_id)+'/'+'choose/'
+        success_page=str(our_user_id)+'/'+'choose/'+'/'
         ...
         return HttpResponseRedirect(success_page)
     else:
