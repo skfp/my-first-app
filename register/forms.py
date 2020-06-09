@@ -15,6 +15,9 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
+
+
+
 #class CreateUserForm(forms.Form):
 #    your_mail = forms.EmailField(max_length=80)
 #    your_login = forms.CharField(max_length=20)

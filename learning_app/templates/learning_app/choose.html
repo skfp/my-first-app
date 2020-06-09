@@ -1,0 +1,10 @@
+<html>
+<body>
+    <a href="{% url 'upload' %}">Upload</a>
+    <br>
+    Choose your pile:
+    {% for p in pile_list %}
+    <a href="{% url 'start' pile_id=p.pile_id %}">{{p.pile_name}}</a>
+    {% endfor %}
+</body>
+</html>
