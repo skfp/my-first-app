@@ -1,6 +1,6 @@
 <html>
 <body>
-    <form action="/login" method="POST">
+    <form action="{% url 'login' %}"  method="POST" enctype="multipart/form-data">
         Username<br><input type="text" id = "username" placeholder = "Username" name="username"><br>
         Password<br><input type="text" id = "password" name="password"><br>
         <input type="submit" value="Submit">
