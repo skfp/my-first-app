@@ -253,7 +253,7 @@ def login_view(request):
             return HttpResponseRedirect('/end/')
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login_view.html', {'form': form})
 
 # def login_view(request):
 #     if request.method == 'GET':
