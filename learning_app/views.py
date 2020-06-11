@@ -248,7 +248,7 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             handle_login(request.POST['username'],request.POST['password'])
-            return HttpResponseRedirect('/end/')
+            #return HttpResponseRedirect('/home/')
         #else:
         #    return HttpResponseRedirect('/home/')
     else:
