@@ -250,7 +250,7 @@ def login_view(request):
             #handle_uploaded_file(request.POST['title'],request.FILES['file'])
             return HttpResponseRedirect('/end/')
         else:
-            return HttpResponseRedirect('/end/')
+            return HttpResponseRedirect('/home/')
     else:
         form = LoginForm()
     return render(request, 'login_view.html', {'form': form})
