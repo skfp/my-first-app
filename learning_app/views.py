@@ -247,10 +247,10 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            #handle_uploaded_file(request.POST['title'],request.FILES['file'])
+            handle_login(request.POST['username'],request.POST['password'])
             return HttpResponseRedirect('/end/')
-        else:
-            return HttpResponseRedirect('/home/')
+        #else:
+        #    return HttpResponseRedirect('/home/')
     else:
         form = LoginForm()
     return render(request, 'login_view.html', {'form': form})
