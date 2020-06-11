@@ -248,6 +248,7 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             handle_login(request,request.POST['username'],request.POST['password'])
+            #handle_login(request)
             #return HttpResponseRedirect('/home/')
         #else:
         #    return HttpResponseRedirect('/home/')
@@ -271,8 +272,8 @@ def login_view(request):
 
 
 def handle_login(request,u,p):
-    user = authenticate(request, username=username, password=password)
-    our_user=AppUser.objects.filter(user_name=username)
+    user = authenticate(request, username=u, password=p)
+    our_user=AppUser.objects.filter(user_name=u)
     our_user_id=our_user.user_id
     if user is not None:
         login(request, user)
