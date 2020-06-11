@@ -251,10 +251,10 @@ def login_view(request):
             return HttpResponseRedirect('/home/')
         else:
             form = LoginForm()
-            return HttpResponseRedirect('/home/')
+            return HttpResponseRedirect('/login/')
     else:
         form = LoginForm()
-        return HttpResponseRedirect('/end/')
+        return HttpResponseRedirect('/home/')
     return render(request, 'login.html', {'form': form})
 
 
