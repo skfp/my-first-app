@@ -244,13 +244,17 @@ def register(request):
 
 
 def login_view(request):
-    if request.method == 'GET':
-        form = LoginForm(request.GET)
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
         if form.is_valid():
             #handle_login(request.GET['username'],request.GET['password'])
             return HttpResponseRedirect('/home/')
+        else:
+            form = LoginForm()
+            return HttpResponseRedirect('/home/')
     else:
         form = LoginForm()
+        return HttpResponseRedirect('/end/')
     return render(request, 'login.html', {'form': form})
 
 
