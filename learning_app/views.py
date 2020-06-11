@@ -273,8 +273,8 @@ def login_view(request):
 
 def handle_login(request,u,p):
     user = authenticate(request, username=u, password=p)
-    our_user=AppUser.objects.filter(user_name=u)
-    our_user_id=our_user.user_id
+    our_user=AppUser.objects.filter(user_login=u)
+    our_user_id=our_user[0].user_id
     if user is not None:
         login(request, user)
         # Redirect to a success page.
