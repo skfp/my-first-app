@@ -244,18 +244,28 @@ def register(request):
 
 
 def login_view(request):
-    if request.method == 'GET':
-        form = LoginForm(request.GET)
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
         if form.is_valid():
-            #handle_login(request.GET['username'],request.GET['password'])
-            return HttpResponseRedirect('/home/')
-        else:
-            form = LoginForm()
-            return HttpResponseRedirect('/login/')
+            #handle_uploaded_file(request.POST['title'],request.FILES['file'])
+            return HttpResponseRedirect('/end/')
     else:
         form = LoginForm()
-        return HttpResponseRedirect('/home/')
     return render(request, 'login.html', {'form': form})
+
+# def login_view(request):
+#     if request.method == 'GET':
+#         form = LoginForm(request.GET)
+#         if form.is_valid():
+#             #handle_login(request.GET['username'],request.GET['password'])
+#             return HttpResponseRedirect('/home/')
+#         else:
+#             form = LoginForm()
+#             return HttpResponseRedirect('/login/')
+#     else:
+#         form = LoginForm()
+#         return HttpResponseRedirect('/home/')
+#     return render(request, 'login.html', {'form': form})
 
 
 def handle_login(u,p):
