@@ -248,41 +248,24 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             handle_login(request,request.POST['username'],request.POST['password'])
-            #handle_login(request)
-            #return HttpResponseRedirect('/home/')
-        #else:
-        #    return HttpResponseRedirect('/home/')
+            our_user=AppUser.objects.filter(user_login=u)
+            our_user_id=our_user[0].user_id
+            # Redirect to a success page.
+            success_page=str(our_user_id)+'/'+'choose/'+'/'
+            return HttpResponseRedirect(success_page)
     else:
         form = LoginForm()
     return render(request, 'login_view.html', {'form': form})
 
-# def login_view(request):
-#     if request.method == 'GET':
-#         form = LoginForm(request.GET)
-#         if form.is_valid():
-#             #handle_login(request.GET['username'],request.GET['password'])
-#             return HttpResponseRedirect('/home/')
-#         else:
-#             form = LoginForm()
-#             return HttpResponseRedirect('/login/')
-#     else:
-#         form = LoginForm()
-#         return HttpResponseRedirect('/home/')
-#     return render(request, 'login.html', {'form': form})
-
 
 def handle_login(request,u,p):
     user = authenticate(request, username=u, password=p)
-    our_user=AppUser.objects.filter(user_login=u)
-    our_user_id=our_user[0].user_id
     if user is not None:
         login(request, user)
-        # Redirect to a success page.
-        success_page=str(our_user_id)+'/'+'choose/'+'/'
-        return HttpResponseRedirect(success_page)
     else:
-        # Return an 'invalid login' error message.
+    # Return an 'invalid login' error message.
         return HttpResponseRedirect('/home/')
+
 
 def choose(request,user_id):
     #user_id=1
