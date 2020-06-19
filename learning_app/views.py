@@ -248,10 +248,11 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             handle_login(request,request.POST['username'],request.POST['password'])
+            u=request.POST['username']
             our_user=AppUser.objects.filter(user_login=u)
             our_user_id=our_user[0].user_id
             # Redirect to a success page.
-            success_page=str(our_user_id)+'/'+'choose/'+'/'
+            success_page='/'+str(our_user_id)+'/'+'choose/'
             return HttpResponseRedirect(success_page)
     else:
         form = LoginForm()
