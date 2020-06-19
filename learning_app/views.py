@@ -106,7 +106,8 @@ def learn(request, user_id, pile_id, previous_id, previous_ans):
         previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
         previous_card_object.save()
     one_pile_object=Pile.objects.get(pile_id=pile_id)
-    one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last}
+    user_id=one_pile_object.user_id
+    one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last,'user_id':user_id }
     return render(request, 'learning_app/learn.html', one_context)
 
 def learn_a(request):
