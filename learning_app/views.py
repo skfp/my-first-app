@@ -27,14 +27,14 @@ def home(request):
     return render(request, 'learning_app/home.html', pile_list_dict)
 
 
-def start(request,pile_id):
+def start(request, pile_id, user_id):
     our_pile_id=pile_id
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
-    one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id}
+    one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id}
     return render(request, 'learning_app/start.html', one_card)
 
-def learn(request, pile_id, previous_id, previous_ans):
+def learn(request, user_id, pile_id, previous_id, previous_ans):
     if previous_id>0:
         tn=timezone.now()
         tnl=[tn.year,tn.month,tn.day,tn.hour,tn.minute,tn.second]
