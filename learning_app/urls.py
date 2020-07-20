@@ -21,6 +21,7 @@ urlpatterns = [
     path('user_created/', views.user_created, name='user_created'),
     path('<int:user_id>/start/<int:pile_id>/', views.start, name='start'),
     path('<int:user_id>/choose/', views.choose, name='choose'),
+    path('<int:user_id>/create_new_pile/', views.create_new_pile, name='create_new_pile'),
 ] #+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 
