@@ -287,11 +287,9 @@ def edit_pile(request, pile_id, user_id):
             our_pile.save()
             success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
             return HttpResponseRedirect(success_page)
-        else:
-            return HttpResponseRedirect('/home/')
     else:
-        return HttpResponseRedirect('/home/')
-    return render(request, 'learning_app/edit_pile.html', {})
+        form = EditPile()
+    return render(request, 'learning_app/edit_pile.html', {'form': form})
 
 def add_card(request, pile_id, user_id):
     our_pile_id=pile_id
@@ -306,11 +304,9 @@ def add_card(request, pile_id, user_id):
             new_card.save()
             success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
             return HttpResponseRedirect(success_page)
-        else:
-            return HttpResponseRedirect('/home/')
     else:
-        return HttpResponseRedirect('/home/')
-    return render(request, 'learning_app/edit_pile.html', {})
+        form = AddCard()
+    return render(request, 'learning_app/add_card.html', {'form': form})
 
 def handle_login(request,u,p):
     user = authenticate(request, username=u, password=p)
