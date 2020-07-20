@@ -36,86 +36,91 @@ def start(request, pile_id, user_id):
 
 def learn(request, user_id, pile_id, previous_id, previous_ans):
     if request.user.is_authenticated:
-        if request.user.id==user_id:
-            current_user_id=request.user.id
-            if previous_id>0:
-                tn=timezone.now()
-                tnl=[tn.year,tn.month,tn.day,tn.hour,tn.minute,tn.second]
-                tnls=[]
-                for t in tnl:
-                    tnls.append(str(t))
-                new_id="".join(tnls)
-                NewAnswerRecord = Answer(answer_id=new_id, card_id_ans=previous_id, pile_id=pile_id, answer=previous_ans)
-                NewAnswerRecord.save()
-                previous_card_object=Card.objects.get(card_id=previous_id, pile_id=pile_id) 
-            
+        if request.user.id == user_id:
+            current_user_id = request.user.id
             my_pile = Pile.objects.get(pile_id=pile_id)
-            is_last=False
-            #random_id=randrange(8)+1
-            
-            #possible_cards: nowe + zle + zwykle_z_dzisiejsza_data      datetime.date(2005, 1, 1))
-            possible_cards_new=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N"]) 
-            possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
-            possible_cards_wrong=Card.objects.filter(pile_id=pile_id,card_type="W") 
-            #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id)
-            #count_new=max(0,len(possible_cards_new))
-            count_new=min(my_pile.new_left_today,len(possible_cards_new))
-            count_normal=len(possible_cards_normal)
-            count_wrong=len(possible_cards_wrong)
-            count_possible=count_new+count_normal+count_wrong
-            random_number=randrange(count_possible)
-            if random_number + 1 <= count_new:
-                id_list=[x.card_id for x in possible_cards_new]
-                random_id=id_list[randrange(len(possible_cards_new))]
-            elif count_normal + count_new >= random_number + 1 > count_new:
-                id_list=[x.card_id for x in possible_cards_normal]
-                random_id=id_list[randrange(len(possible_cards_normal))]
-            else:
-                id_list=[x.card_id for x in possible_cards_wrong]
-                random_id=id_list[randrange(len(possible_cards_wrong))]
-            one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id)
+            user_of_this_pile = my_pile.user_id
+            if request.user.id == user_of_this_pile
+                if previous_id>0:
+                    tn=timezone.now()
+                    tnl=[tn.year,tn.month,tn.day,tn.hour,tn.minute,tn.second]
+                    tnls=[]
+                    for t in tnl:
+                        tnls.append(str(t))
+                    new_id="".join(tnls)
+                    NewAnswerRecord = Answer(answer_id=new_id, card_id_ans=previous_id, pile_id=pile_id, answer=previous_ans)
+                    NewAnswerRecord.save()
+                    previous_card_object=Card.objects.get(card_id=previous_id, pile_id=pile_id) 
+                
+                #my_pile = Pile.objects.get(pile_id=pile_id)
+                is_last=False
+                #random_id=randrange(8)+1
+                
+                #possible_cards: nowe + zle + zwykle_z_dzisiejsza_data      datetime.date(2005, 1, 1))
+                possible_cards_new=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N"]) 
+                possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
+                possible_cards_wrong=Card.objects.filter(pile_id=pile_id,card_type="W") 
+                #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id)
+                #count_new=max(0,len(possible_cards_new))
+                count_new=min(my_pile.new_left_today,len(possible_cards_new))
+                count_normal=len(possible_cards_normal)
+                count_wrong=len(possible_cards_wrong)
+                count_possible=count_new+count_normal+count_wrong
+                random_number=randrange(count_possible)
+                if random_number + 1 <= count_new:
+                    id_list=[x.card_id for x in possible_cards_new]
+                    random_id=id_list[randrange(len(possible_cards_new))]
+                elif count_normal + count_new >= random_number + 1 > count_new:
+                    id_list=[x.card_id for x in possible_cards_normal]
+                    random_id=id_list[randrange(len(possible_cards_normal))]
+                else:
+                    id_list=[x.card_id for x in possible_cards_wrong]
+                    random_id=id_list[randrange(len(possible_cards_wrong))]
+                one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id)
 
-            if my_pile.new_left_today + my_pile.normal_left_today + my_pile.wrong_left_today == 1:
-                is_last=True
-            if one_card_object.card_type in ["N","NEW"]:
-                my_pile.new_left_today = my_pile.new_left_today-1
-                my_pile.save()
-            if one_card_object.card_type in ["M","H"]:
-                my_pile.normal_left_today = my_pile.normal_left_today-1
-                my_pile.save()
-            if one_card_object.card_type == "W":
-                my_pile.wrong_left_today = my_pile.wrong_left_today-1
-                my_pile.save()
-            if previous_ans=="W":
-                my_pile.wrong_left_today = my_pile.wrong_left_today+1
-                my_pile.save()
-                next_tz=timezone.now()
-                previous_card_object.card_type="W"
-                previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
-                previous_card_object.save()
-            if previous_ans=="E":
-                previous_card_object.card_type="L"
-                next_tz=timezone.now() + timezone.timedelta(days=7)
-                previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
-                previous_card_object.save()
-            if previous_ans=="M":
-                previous_card_object.card_type="M"
-                next_tz=timezone.now() + timezone.timedelta(days=4)
-                previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
-                previous_card_object.save()
-            if previous_ans=="H":
-                previous_card_object.card_type="S"
-                next_tz=timezone.now() + timezone.timedelta(days=2)
-                previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
-                previous_card_object.save()
-            one_pile_object=Pile.objects.get(pile_id=pile_id)
-            user_id=one_pile_object.user_id
-            one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last,'user_id':user_id, 'current_user_id':current_user_id }
-            return render(request, 'learning_app/learn.html', one_context)
+                if my_pile.new_left_today + my_pile.normal_left_today + my_pile.wrong_left_today == 1:
+                    is_last=True
+                if one_card_object.card_type in ["N","NEW"]:
+                    my_pile.new_left_today = my_pile.new_left_today-1
+                    my_pile.save()
+                if one_card_object.card_type in ["M","H"]:
+                    my_pile.normal_left_today = my_pile.normal_left_today-1
+                    my_pile.save()
+                if one_card_object.card_type == "W":
+                    my_pile.wrong_left_today = my_pile.wrong_left_today-1
+                    my_pile.save()
+                if previous_ans=="W":
+                    my_pile.wrong_left_today = my_pile.wrong_left_today+1
+                    my_pile.save()
+                    next_tz=timezone.now()
+                    previous_card_object.card_type="W"
+                    previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+                    previous_card_object.save()
+                if previous_ans=="E":
+                    previous_card_object.card_type="L"
+                    next_tz=timezone.now() + timezone.timedelta(days=7)
+                    previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+                    previous_card_object.save()
+                if previous_ans=="M":
+                    previous_card_object.card_type="M"
+                    next_tz=timezone.now() + timezone.timedelta(days=4)
+                    previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+                    previous_card_object.save()
+                if previous_ans=="H":
+                    previous_card_object.card_type="S"
+                    next_tz=timezone.now() + timezone.timedelta(days=2)
+                    previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
+                    previous_card_object.save()
+                one_pile_object=Pile.objects.get(pile_id=pile_id)
+                user_id=one_pile_object.user_id
+                one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last,'user_id':user_id, 'current_user_id':current_user_id }
+                return render(request, 'learning_app/learn.html', one_context)
+            else:
+                return render(request, 'learning_app/not_auth.html', {})
         else:
-            return render(request, 'learning_app/end.html', {})
+            return render(request, 'learning_app/not_auth.html', {})
     else:
-        return render(request, 'learning_app/end.html', {})
+        return render(request, 'learning_app/not_auth.html', {})
 
 #def learn_a(request):
     #random_id=17
