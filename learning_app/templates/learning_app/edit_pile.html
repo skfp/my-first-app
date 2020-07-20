@@ -1,6 +1,6 @@
 <html>
 <body>
-    <form action="{% url 'edit_pile' %}" method="POST" enctype="multipart/form-data" name="EditPile">
+    <form action="{% url 'edit_pile' user_id=user_id pile_id=our_pile_id %}" method="POST" enctype="multipart/form-data" name="EditPile">
         {% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="submit"/>
