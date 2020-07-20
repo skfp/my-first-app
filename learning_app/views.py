@@ -37,6 +37,7 @@ def start(request, pile_id, user_id):
 def learn(request, user_id, pile_id, previous_id, previous_ans):
     if request.user.is_authenticated:
         if request.user.id==user_id:
+            current_user_id=request.user.id
             if previous_id>0:
                 tn=timezone.now()
                 tnl=[tn.year,tn.month,tn.day,tn.hour,tn.minute,tn.second]
@@ -109,7 +110,7 @@ def learn(request, user_id, pile_id, previous_id, previous_ans):
                 previous_card_object.save()
             one_pile_object=Pile.objects.get(pile_id=pile_id)
             user_id=one_pile_object.user_id
-            one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last,'user_id':user_id }
+            one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last,'user_id':user_id, 'current_user_id':current_user_id }
             return render(request, 'learning_app/learn.html', one_context)
         else:
             return render(request, 'learning_app/end.html', {})

@@ -16,6 +16,10 @@ div.my_language {
     width: 100%;
     height:40%;
 }
+div.user_id {
+    margin: 0px;
+    padding: 0px;
+}
 div.new_count {
     margin: 0px;
     padding: 0px;
