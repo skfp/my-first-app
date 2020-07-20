@@ -326,7 +326,7 @@ def choose(request,user_id):
 
 
 def create_new_pile_from_file(user_id,pile_name,file_name,new_cards_per_day):
-    f = '/static/data/'+file_name
+    f = '/learning_app/static/data/'+file_name
     list_of_piles = Pile.objects.all().order_by('-pile_id')
     new_pile_id = list_of_piles[0].pile_id+1
     virgin_data = pd.read_csv(f,sep=";")
