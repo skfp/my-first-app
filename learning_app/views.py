@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 
-from .forms import UploadFileForm, LoginForm, EditPile, AddCard#, CreateUserForm
+from .forms import UploadFileForm, LoginForm, EditPile, AddCard, CreateNewPileFromOurPiles#, CreateUserForm
 
 # Imaginary function to handle an uploaded file.
 #from somewhere import handle_uploaded_file
@@ -325,4 +325,27 @@ def choose(request,user_id):
     return render(request, 'learning_app/choose.html', pile_list_dict)
 
 
+def create_new_pile_from_file(user_id,pile_name,file_name,new_cards_per_day):
+    f = '/static/data/'+file_name
+    list_of_piles = Pile.objects.all().order_by('-pile_id')
+    new_pile_id = list_of_piles[0].pile_id+1
+    virgin_data = pd.read_csv(f,sep=";")
+    new_pile = Pile(user_id=user_id, pile_id=new_pile_id, pile_name=pile_name,new_per_day=new_cards_per_day)
+    for i in range(virgin_data.shape[0]):
+        first_lng_name = virgin_data.columns[0]
+        second_lng_name = virgin_data.columns[1]
+        first_lng = virgin_data[first_lng_name][i]
+        second_lng = virgin_data[second_lng_name][i]
+        new_card = Card(card_id=i,pile_id=new_pile_id,first_lng=first_lng,second_lng=second_lng)
+        new_card.save()
 
+
+def create_new_pile(request,user_id):
+    if request.method == 'POST':
+        form = CreateNewPileFromOurPiles(request.POST)
+        if form.is_valid():
+            create_new_pile_from_file(user_id,request.POST['pile_name'],request.POST['file_name'],request.POST['new_cards_per_day'])
+            return HttpResponseRedirect('/home/')
+    else:
+        form = CreateNewPileFromOurPiles()
+    return render(request, 'upload.html', {'form': form, 'user_id': user_id})
