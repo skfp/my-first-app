@@ -1,6 +1,7 @@
 <html>
 <body>
     <a href="{% url 'upload' %}">Upload</a>
+    <a href="{% url 'create_new_pile' user_id=user_id %}">Create a pile from our file</a>
     <br>
     Choose your pile:
     {% for p in pile_list %}
