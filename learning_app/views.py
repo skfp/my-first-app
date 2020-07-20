@@ -40,7 +40,7 @@ def learn(request, user_id, pile_id, previous_id, previous_ans):
             current_user_id = request.user.id
             my_pile = Pile.objects.get(pile_id=pile_id)
             user_of_this_pile = my_pile.user_id
-            if request.user.id == user_of_this_pile
+            if request.user.id == user_of_this_pile:
                 if previous_id>0:
                     tn=timezone.now()
                     tnl=[tn.year,tn.month,tn.day,tn.hour,tn.minute,tn.second]
