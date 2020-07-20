@@ -306,7 +306,7 @@ def add_card(request, pile_id, user_id):
             return HttpResponseRedirect(success_page)
     else:
         form = AddCard()
-    return render(request, 'learning_app/add_card.html', {'form': form})
+    return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
 
 def handle_login(request,u,p):
     user = authenticate(request, username=u, password=p)
