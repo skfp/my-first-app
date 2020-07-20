@@ -13,6 +13,7 @@ urlpatterns = [
     #path('learn/q/minus_one_new/', views.minus_one_new, name='minus_one_new'),
     #path('add_e/', views.add_e, name='add_e'),
     path('end/', views.end, name='end'),
+    path('not_auth/', views.not_auth, name='not_auth'),
     path('login_view/', views.login_view, name='login_view'),
     path('register/', views.register, name='register'),
     path('user_created/', views.user_created, name='user_created'),

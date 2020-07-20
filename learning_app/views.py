@@ -127,6 +127,9 @@ def learn(request, user_id, pile_id, previous_id, previous_ans):
 def end(request):
     return render(request, 'learning_app/end.html', {})
 
+def not_auth(request):
+    return render(request, 'learning_app/not_auth.html', {})
+
 #def learn_q(request):
     #random_id=17
 #    random_id=randrange(600)
