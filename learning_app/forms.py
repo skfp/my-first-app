@@ -12,6 +12,13 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(), max_length=50)
     #password = forms.CharField(widget=forms.PasswordInput())
 
+class EditPile(forms.Form):
+    new_pile_name = forms.CharField(max_length=50)
+    new_cards_per_day = forms.IntegerField()
+
+class AddCard(forms.Form):
+    first_lng = forms.CharField(max_length=200)
+    second_lng = forms.CharField(max_length=200)
 
 #class CreateUserForm(forms.Form):
 #    your_mail = forms.EmailField(max_length=80)
