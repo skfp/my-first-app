@@ -23,10 +23,10 @@ class AddCard(forms.Form):
 CHOICES = [('verbs_eng.csv','English iregular verbs'),('verbs_ger.csv','German iregular verbs')]
 class CreateNewPileFromOurPiles(forms.Form):
     pile_name = forms.CharField(max_length=200)
-    file_name = forms.CharField(widget=forms.RadioSelect(choices=CHOICES))
+    file_name = forms.CharField(label='Pile content', widget=forms.RadioSelect(choices=CHOICES))
     new_cards_per_day = forms.IntegerField()
 
-    
+
 #class CreateUserForm(forms.Form):
 #    your_mail = forms.EmailField(max_length=80)
 #    your_login = forms.CharField(max_length=20)
