@@ -276,11 +276,11 @@ def login_view(request):
 
 def edit_pile(request, pile_id, user_id):
     our_pile_id=pile_id
-    if request.method == 'GET':
-        form = EditPile(request.GET)
+    if request.method == 'POST':
+        form = EditPile(request.POST)
         if form.is_valid():
-            new_pile_name = request.GET['new_pile_name']
-            new_cards_per_day = request.GET['new_cards_per_day']
+            new_pile_name = request.POST['new_pile_name']
+            new_cards_per_day = request.POST['new_cards_per_day']
             our_pile=Pile.objects.get(pile_id=our_pile_id)
             our_pile.pile_name = new_pile_name
             our_pile.new_per_day = new_cards_per_day
