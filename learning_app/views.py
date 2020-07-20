@@ -289,7 +289,7 @@ def edit_pile(request, pile_id, user_id):
             return HttpResponseRedirect(success_page)
     else:
         form = EditPile()
-    return render(request, 'learning_app/edit_pile.html', {'form': form, 'pile_id': pile_id, 'user_id': user_id})
+    return render(request, 'learning_app/edit_pile.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
 
 def add_card(request, pile_id, user_id):
     our_pile_id=pile_id
