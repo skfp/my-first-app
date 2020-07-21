@@ -1,14 +1,12 @@
 <html>
 <body>
-    <p>Hi there!</p>
-    <p>It works!</p>
-    <p></p>
-    <br>
     <a href="{% url 'upload' %}">Upload</a>
     <br>
     <a href="{% url 'register' %}">Register</a>
     <br>
     <a href="{% url 'login_view' %}">Login</a>
+    <br>
+    <a href="{% url 'logout' %}">Logout</a>
     <br>
     Choose your pile:
     {% for p in pile_list %}
