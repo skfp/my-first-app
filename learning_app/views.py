@@ -305,7 +305,7 @@ def create_new_pile_from_file(user_id,pile_name,file_name,new_cards_per_day):
     new_pile_id = list_of_piles[0].pile_id+1
     new_pile = Pile(user_id=user_id, pile_id=new_pile_id, pile_name=pile_name, new_per_day=new_cards_per_day, new_left_today = new_cards_per_day)
     new_pile.save()
-    if file_name!= '':
+    if file_name!= '-':
         f = "learning_app/static/data/"+file_name
         virgin_data = pd.read_csv(f,sep=";")
         for i in range(virgin_data.shape[0]):
