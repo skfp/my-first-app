@@ -334,14 +334,14 @@ def create_new_pile_from_file(user_id,pile_name,file_name,new_cards_per_day):
     list_of_piles = Pile.objects.all().order_by('-pile_id')
     new_pile_id = list_of_piles[0].pile_id+1
     virgin_data = pd.read_csv(f,sep=";")
-    new_pile = Pile(user_id=user_id, pile_id=new_pile_id, pile_name=pile_name,new_per_day=new_cards_per_day)
+    new_pile = Pile(user_id=user_id, pile_id=new_pile_id, pile_name=pile_name, new_per_day=new_cards_per_day, new_left_today = new_cards_per_day)
     new_pile.save()
     for i in range(virgin_data.shape[0]):
         first_lng_name = virgin_data.columns[0]
         second_lng_name = virgin_data.columns[1]
         first_lng = virgin_data[first_lng_name][i]
         second_lng = virgin_data[second_lng_name][i]
-        new_card = Card(card_id=i,pile_id=new_pile_id,first_lng=first_lng,second_lng=second_lng)
+        new_card = Card(card_id=i+1,pile_id=new_pile_id,first_lng=first_lng,second_lng=second_lng)
         new_card.save()
 
 
