@@ -20,7 +20,8 @@ class AddCard(forms.Form):
     first_lng = forms.CharField(max_length=200)
     second_lng = forms.CharField(max_length=200)
 
-CHOICES = [('verbs_eng.csv','English iregular verbs'),('verbs_ger.csv','German iregular verbs')]
+CHOICES = [('','Create empty pile'),
+    ('verbs_eng.csv','English iregular verbs'),('verbs_ger.csv','German iregular verbs')]
 class CreateNewPileFromOurPiles(forms.Form):
     pile_name = forms.CharField(max_length=200)
     file_name = forms.CharField(label='Pile content', widget=forms.RadioSelect(choices=CHOICES))
