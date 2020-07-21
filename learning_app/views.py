@@ -127,36 +127,19 @@ def learn(request, user_id, pile_id, previous_id, previous_ans):
     else:
         return render(request, 'learning_app/not_auth.html', {})
 
-#def learn_a(request):
-    #random_id=17
-#    random_id=randrange(600)
-#    one_card_object=Card.objects.get(card_id=random_id) 
-#    one_card= {'one_card_object': one_card_object}
-#    return render(request, 'learning_app/learn_a.html', one_card)
-
 def end(request):
-    return render(request, 'learning_app/end.html', {})
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        return render(request, 'learning_app/end.html', {'user_id':user_id})
+    else:
+        return render(request, 'learning_app/not_auth.html', {})
 
 def not_auth(request):
     return render(request, 'learning_app/not_auth.html', {})
 
-#def learn_q(request):
-    #random_id=17
-#    random_id=randrange(600)
-#    one_card_object=Card.objects.get(card_id=random_id)
-#    one_user_object=AppUser.objects.get(user_id=1) 
-#    if one_card_object.card_type in ["N","NEW"]:
-#        my_user = AppUser.objects.get(user_id=1)
-#        my_user.new_left_today = my_user.new_left_today-1
-#        my_user.save()
-#    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
-#    return render(request, 'learning_app/learn_q.html', one_context)
-
 
 def minus_one_new(request):
     my_user = AppUser.objects.get(user_id=1)
-    #my_user.update(new_left_today=F('new_left_today') - 1)
-    #my_user.refresh_from_db()
     my_user.new_left_today = my_user.new_left_today-1
     my_user.save()
     random_id=randrange(600)
