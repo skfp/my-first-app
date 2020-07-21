@@ -270,7 +270,10 @@ def add_card(request, pile_id, user_id):
         form = AddCard(request.POST)
         if form.is_valid():
             cards_in_pile=Card.objects.filter(pile_id=our_pile_id).order_by('-card_id')
-            new_card_id=cards_in_pile[0].card_id+1
+            if len(cards_in_pile) == 0:
+                new_card_id=1
+            else:
+                new_card_id=cards_in_pile[0].card_id+1
             new_card_first_lng = request.POST['first_lng']
             new_card_second_lng = request.POST['second_lng']
             new_card = Card(card_id=new_card_id, pile_id=pile_id, first_lng=new_card_first_lng, second_lng=new_card_second_lng)
