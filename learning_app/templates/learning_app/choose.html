@@ -1,11 +1,17 @@
 <html>
 <body>
     <a href="{% url 'upload' %}">Upload</a>
+    <br>
+    <br>
     <a href="{% url 'create_new_pile' user_id=user_id %}">Create a pile from our file</a>
+    <br>
     <br>
     Choose your pile:
     {% for p in pile_list %}
     <a href="{% url 'start' pile_id=p.pile_id user_id=p.user_id%}">{{p.pile_name}}</a>
     {% endfor %}
+    <br>
+    <br>
+    <a href="{% url 'logout' %}">Logout</a>
 </body>
 </html>
