@@ -23,9 +23,12 @@ from .forms import UploadFileForm, LoginForm, EditPile, AddCard, CreateNewPileFr
 # Create your views here.
 
 def home(request):
-    user_id=1
+    if request.user.is_authenticated:
+        user_id=request.user.id
+    else:
+        user_id=0
     pile_list=Pile.objects.filter(user_id=1)
-    pile_list_dict={'pile_list':pile_list}
+    pile_list_dict={'pile_list':pile_list, 'user_id':user_id}
     return render(request, 'learning_app/home.html', pile_list_dict)
 
 
@@ -179,19 +182,6 @@ def load_eng(request):
         NewCardRecord.save()
     return render(request, 'learning_app/load.html', {})
 
-#def add_e(request):
-#    NewAnswerRecord = Answer( answer_id=1, card_id_ans=1, pile_id=1, answer="E")
-#    NewAnswerRecord.save()
-
-#def upload(request):
-#def load_any(request):
-    #virgin_data=pd.read_csv("learning_app/static/data/input_eng.csv",sep=";")
-#    data_pl_lt=virgin_data.drop(['Unnamed: 4','Unnamed: 5','Unnamed: 6','Unnamed: 7'], axis=1)
-#    for i in range(data_pl_lt.shape[0]):
-#        NewCardRecord = Card(card_id = data_pl_lt['id'][i],pile_id = 2,first_lng=data_pl_lt['pl'][i],second_lng= data_pl_lt['eng'][i],card_type=data_pl_lt['class'][i])
-#        NewCardRecord.save()
-#    return render(request, 'learning_app/load_any.html', {})
-
 def handle_uploaded_file(title,f):
     max_of_piles=0
     list_of_piles=Pile.objects.all()
@@ -240,25 +230,6 @@ def register(request):
     else:
         form = CreateUserForm()
     return render(request, 'register.html', {'form': form})
-
-
-# def login(request):
-#     if request.method == 'GET':
-#         username = request.GET['username']
-#         password = request.GET['password']
-#         user = authenticate(request, username=username, password=password)
-#         our_user=AppUser.objects.filter(user_name=username)
-#         our_user_id=our_user.user_id
-#         if user is not None:
-#             login(request, user)
-#             # Redirect to a success page.
-#             success_page=str(our_user_id)+'/'+'choose/'+'/'
-#             return HttpResponseRedirect(success_page)
-#         else:
-#             # Return an 'invalid login' error message.
-#             ...
-#             return HttpResponseRedirect('/home/')
-#     return HttpResponseRedirect('/home/')
 
 
 def login_view(request):
@@ -321,10 +292,12 @@ def handle_login(request,u,p):
 
 
 def choose(request,user_id):
-    #user_id=1
-    pile_list=Pile.objects.filter(user_id=user_id)
-    pile_list_dict={'pile_list':pile_list,'user_id':user_id}
-    return render(request, 'learning_app/choose.html', pile_list_dict)
+    if user_id == 0:
+        return render(request, 'learning_app/not_auth.html', {})
+    else:
+        pile_list=Pile.objects.filter(user_id=user_id)
+        pile_list_dict={'pile_list':pile_list,'user_id':user_id}
+        return render(request, 'learning_app/choose.html', pile_list_dict)
 
 
 def create_new_pile_from_file(user_id,pile_name,file_name,new_cards_per_day):
