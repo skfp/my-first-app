@@ -1,8 +1,10 @@
 <html>
 <body>
+    {{pile_name}}
+    <br>
+    <br>
     <a href="{% url 'learn' user_id=user_id pile_id=our_pile_id previous_id=0 previous_ans='X' %}">Start</a>
     <a href="{% url 'edit_pile' user_id=user_id pile_id=our_pile_id %}">Edit this pile</a>
     <a href="{% url 'add_card' user_id=user_id pile_id=our_pile_id  %}">Add a card to this pile</a>
-    {{our_pile_id}}
 </body>
 </html>

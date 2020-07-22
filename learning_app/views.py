@@ -34,9 +34,11 @@ def home(request):
 
 def start(request, pile_id, user_id):
     our_pile_id=pile_id
+    one_pile_object=Pile.objects.get(pile_id=pile_id) 
+    pile_name=one_pile_object.pile_name
     random_id=randrange(600)
     one_card_object=Card.objects.get(card_id=random_id) 
-    one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id}
+    one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name}
     return render(request, 'learning_app/start.html', one_card)
 
 def learn(request, user_id, pile_id, previous_id, previous_ans):
@@ -312,3 +314,15 @@ def create_new_pile(request,user_id):
     else:
         form = CreateNewPileFromOurPiles()
     return render(request, 'create_new_pile.html', {'form': form, 'user_id': user_id})
+
+def refresh_new_cards_today_value():
+    all_piles = Pile.objects.all()
+    for i in all_piles:
+        all_new_cards = Card.objects.filter(pile_id = i.pile_id, card_type__in=["NEW","N"]) 
+        all_new_cards_count = len(all_cards)
+        new_value = min(all_new_cards_count, i.new_per_day)
+        i.new_left_today = new_value
+
+
+
+
