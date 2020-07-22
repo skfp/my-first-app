@@ -322,7 +322,15 @@ def refresh_new_cards_today_value():
         all_new_cards_count = len(all_cards)
         new_value = min(all_new_cards_count, i.new_per_day)
         i.new_left_today = new_value
+#refresh_new_cards_today_value()
 
 
-
+from learning_app.models import Card,AppUser,Answer,Pile
+all_piles = Pile.objects.all()
+for i in all_piles:
+    all_new_cards = Card.objects.filter(pile_id = i.pile_id, card_type__in=["NEW","N"]) 
+    all_new_cards_count = len(all_new_cards)
+    new_value = min(all_new_cards_count, i.new_per_day)
+    i.new_left_today = new_value
+    i.save()
 
