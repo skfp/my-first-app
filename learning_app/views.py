@@ -43,8 +43,8 @@ def start(request, pile_id, user_id):
     count_norm = len(Card.objects.filter(pile_id=pile_id, card_type__in=["S","M","L","H"]))
     count_wrong = len(Card.objects.filter(pile_id=pile_id, card_type="W"))
     today_tz=timezone.now()
-    today_count_new = min(count_new, one_pile_object.new_per_day)
-    today_count_norm = len(Card.objects.filter(next_learn_date=date(next_tz.year,next_tz.month,next_tz.day), pile_id=pile_id, card_type__in=["S","M","L","H"]))
+    today_count_new = one_pile_object.new_left_today
+    today_count_norm = len(Card.objects.filter(next_learn_date=date(today_tz.year,today_tz.month,today_tz.day), pile_id=pile_id, card_type__in=["S","M","L","H"]))
     #one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
     one_card= {'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
     'count_all':count_all, 'count_new':count_new, 'count_norm':count_norm, 'count_wrong':count_wrong,
@@ -368,6 +368,32 @@ def refresh_new_cards_today_value():
         new_value = min(all_new_cards_count, i.new_per_day)
         i.new_left_today = new_value
 #refresh_new_cards_today_value()
+
+
+def increase(request, pile_id, user_id):
+    if request.user.is_authenticated:
+        if request.user.id == user_id:
+            current_user_id = request.user.id
+            my_pile = Pile.objects.get(pile_id=pile_id)
+            user_of_this_pile = my_pile.user_id
+            if request.user.id == user_of_this_pile:
+                our_pile_id=pile_id
+                if request.method == 'POST':
+                    form = IncreaseNumberOfNewCards(request.POST)
+                    if form.is_valid():
+                        our_pile=Pile.objects.get(pile_id=our_pile_id)
+                        our_pile.new_left_today = our_pile.new_left_today + request.POST['increase_value']
+                        our_pile.save()
+                        return render(request, 'learning_app/increase.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+                else:
+                    form = IncreaseNumberOfNewCards()
+                return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+            else:
+                return render(request, 'learning_app/not_auth.html', {})   
+        else:
+            return render(request, 'learning_app/not_auth.html', {})
+    else:
+        return render(request, 'learning_app/not_auth.html', {})
 
 
 

@@ -13,6 +13,7 @@ urlpatterns = [
     path('login_view/', views.login_view, name='login_view'),
     path('<int:user_id>/edit_pile/<int:pile_id>/', views.edit_pile, name='edit_pile'),
     path('<int:user_id>/add_card/<int:pile_id>/', views.add_card, name='add_card'),
+    path('<int:user_id>/increase/<int:pile_id>/', views.increase, name='increase'),
     path('register/', views.register, name='register'),
     path('user_created/', views.user_created, name='user_created'),
     path('<int:user_id>/start/<int:pile_id>/', views.start, name='start'),

@@ -1,0 +1,10 @@
+<html>
+<body>
+    <form action="{% url 'increase' user_id=user_id pile_id=pile_id %}" method="POST" enctype="multipart/form-data" name="IncreaseNumberOfNewCards">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="submit"/>
+    </form>
+    <a href="{% url 'start' pile_id=pile_id user_id=user_id%}">Back</a>
+</body>
+</html>

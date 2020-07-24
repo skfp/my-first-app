@@ -20,6 +20,9 @@ class AddCard(forms.Form):
     first_lng = forms.CharField(max_length=200)
     second_lng = forms.CharField(max_length=200)
 
+class IncreaseNumberOfNewCards(forms.Form):
+    increase_value = forms.IntegerField()
+
 CHOICES = [('-','Create empty pile'),
     ('verbs_eng.csv','English iregular verbs'),('verbs_ger.csv','German iregular verbs')]
 class CreateNewPileFromOurPiles(forms.Form):
