@@ -15,7 +15,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.staticfiles.storage import staticfiles_storage
 
-from .forms import UploadFileForm, LoginForm, EditPile, AddCard, CreateNewPileFromOurPiles#, CreateUserForm
+from .forms import UploadFileForm, LoginForm, EditPile, AddCard, CreateNewPileFromOurPiles, IncreaseNumberOfNewCards#, CreateUserForm
 
 # Imaginary function to handle an uploaded file.
 #from somewhere import handle_uploaded_file
@@ -382,12 +382,14 @@ def increase(request, pile_id, user_id):
                     form = IncreaseNumberOfNewCards(request.POST)
                     if form.is_valid():
                         our_pile=Pile.objects.get(pile_id=our_pile_id)
-                        our_pile.new_left_today = our_pile.new_left_today + request.POST['increase_value']
+                        our_pile.new_left_today = our_pile.new_left_today + int(request.POST['increase_value'])
                         our_pile.save()
-                        return render(request, 'learning_app/increase.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+                        success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
+                        return HttpResponseRedirect(success_page)
+                        #return render(request, 'learning_app/increase.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
                 else:
                     form = IncreaseNumberOfNewCards()
-                return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+                return render(request, 'learning_app/increase.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
             else:
                 return render(request, 'learning_app/not_auth.html', {})   
         else:

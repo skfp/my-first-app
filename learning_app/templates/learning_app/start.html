@@ -11,7 +11,7 @@
     <br>
     New cards left to learn: {{count_new}}
     <br>
-    Cards learned:{{count_norm}}
+    Cards learned: {{count_norm}}
     <br>
     Cards with last answer "wrong": {{count_wrong}}
     <br>
@@ -23,5 +23,8 @@
     Other cards left: {{today_count_norm}}
     <br>
     Wrong cards left: {{count_wrong}}
+    <br>
+    <br>
+    <a href="{% url 'increase' user_id=user_id pile_id=our_pile_id  %}">Increase number of new cards for today learning</a>
 </body>
 </html>
