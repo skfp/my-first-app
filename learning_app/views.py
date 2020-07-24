@@ -33,23 +33,35 @@ def home(request):
 
 
 def start(request, pile_id, user_id):
-    our_pile_id=pile_id
-    one_pile_object=Pile.objects.get(pile_id=pile_id) 
-    pile_name=one_pile_object.pile_name
-    #random_id=randrange(600)
-    #one_card_object=Card.objects.get(card_id=random_id) 
-    count_all = len(Card.objects.filter(pile_id=pile_id))
-    count_new = len(Card.objects.filter(pile_id=pile_id, card_type__in=["N","NEW"]))
-    count_norm = len(Card.objects.filter(pile_id=pile_id, card_type__in=["S","M","L","H"]))
-    count_wrong = len(Card.objects.filter(pile_id=pile_id, card_type="W"))
-    today_tz=timezone.now()
-    today_count_new = one_pile_object.new_left_today
-    today_count_norm = len(Card.objects.filter(next_learn_date=date(today_tz.year,today_tz.month,today_tz.day), pile_id=pile_id, card_type__in=["S","M","L","H"]))
-    #one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
-    one_card= {'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
-    'count_all':count_all, 'count_new':count_new, 'count_norm':count_norm, 'count_wrong':count_wrong,
-    'today_count_new':today_count_new, 'today_count_norm':today_count_norm}
-    return render(request, 'learning_app/start.html', one_card)
+    if request.user.is_authenticated:
+        if request.user.id == user_id:
+            current_user_id = request.user.id
+            my_pile = Pile.objects.get(pile_id=pile_id)
+            user_of_this_pile = my_pile.user_id
+            if request.user.id == user_of_this_pile:
+                our_pile_id=pile_id
+                one_pile_object=Pile.objects.get(pile_id=pile_id) 
+                pile_name=one_pile_object.pile_name
+                #random_id=randrange(600)
+                #one_card_object=Card.objects.get(card_id=random_id) 
+                count_all = len(Card.objects.filter(pile_id=pile_id))
+                count_new = len(Card.objects.filter(pile_id=pile_id, card_type__in=["N","NEW"]))
+                count_norm = len(Card.objects.filter(pile_id=pile_id, card_type__in=["S","M","L","H"]))
+                count_wrong = len(Card.objects.filter(pile_id=pile_id, card_type="W"))
+                today_tz=timezone.now()
+                today_count_new = one_pile_object.new_left_today
+                today_count_norm = len(Card.objects.filter(next_learn_date=date(today_tz.year,today_tz.month,today_tz.day), pile_id=pile_id, card_type__in=["S","M","L","H"]))
+                #one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
+                one_card= {'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
+                'count_all':count_all, 'count_new':count_new, 'count_norm':count_norm, 'count_wrong':count_wrong,
+                'today_count_new':today_count_new, 'today_count_norm':today_count_norm}
+                return render(request, 'learning_app/start.html', one_card)
+            else:
+                return render(request, 'learning_app/not_auth.html', {})
+        else:
+            return render(request, 'learning_app/not_auth.html', {})
+    else:
+        return render(request, 'learning_app/not_auth.html', {})
 
 def learn(request, user_id, pile_id, previous_id, previous_ans):
     if request.user.is_authenticated:
