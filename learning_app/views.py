@@ -42,7 +42,7 @@ def start(request, pile_id, user_id):
     count_new = len(Card.objects.filter(pile_id=pile_id, card_type__in=["N","NEW"]))
     count_norm = len(Card.objects.filter(pile_id=pile_id, card_type__in=["S","M","L","H"]))
     count_wrong = len(Card.objects.filter(pile_id=pile_id, card_type="W"))
-    one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name
+    one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
     'count_all':count_all, 'count_new':count_new, 'count_norm':count_norm, 'count_wrong':count_wrong}
     return render(request, 'learning_app/start.html', one_card)
 
