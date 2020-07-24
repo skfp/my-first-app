@@ -42,9 +42,13 @@ def start(request, pile_id, user_id):
     count_new = len(Card.objects.filter(pile_id=pile_id, card_type__in=["N","NEW"]))
     count_norm = len(Card.objects.filter(pile_id=pile_id, card_type__in=["S","M","L","H"]))
     count_wrong = len(Card.objects.filter(pile_id=pile_id, card_type="W"))
+    today_tz=timezone.now()
+    today_count_new = min(count_new, one_pile_object.new_per_day)
+    today_count_norm = len(Card.objects.filter(next_learn_date=date(next_tz.year,next_tz.month,next_tz.day), pile_id=pile_id, card_type__in=["S","M","L","H"]))
     #one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
     one_card= {'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
-    'count_all':count_all, 'count_new':count_new, 'count_norm':count_norm, 'count_wrong':count_wrong}
+    'count_all':count_all, 'count_new':count_new, 'count_norm':count_norm, 'count_wrong':count_wrong,
+    'today_count_new':today_count_new, 'today_count_norm':today_count_norm}
     return render(request, 'learning_app/start.html', one_card)
 
 def learn(request, user_id, pile_id, previous_id, previous_ans):
@@ -241,44 +245,63 @@ def login_view(request):
     return render(request, 'login_view.html', {'form': form})
 
 def edit_pile(request, pile_id, user_id):
-    our_pile_id=pile_id
-    if request.method == 'POST':
-        form = EditPile(request.POST)
-        if form.is_valid():
-            new_pile_name = request.POST['new_pile_name']
-            new_cards_per_day = request.POST['new_cards_per_day']
-            our_pile=Pile.objects.get(pile_id=our_pile_id)
-            our_pile.pile_name = new_pile_name
-            our_pile.new_per_day = new_cards_per_day
-            our_pile.save()
-            success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
-            return HttpResponseRedirect(success_page)
+    if request.user.is_authenticated:
+        if request.user.id == user_id:
+            current_user_id = request.user.id
+            my_pile = Pile.objects.get(pile_id=pile_id)
+            user_of_this_pile = my_pile.user_id
+            if request.user.id == user_of_this_pile:
+                our_pile_id=pile_id
+                if request.method == 'POST':
+                    form = EditPile(request.POST)
+                    if form.is_valid():
+                        new_pile_name = request.POST['new_pile_name']
+                        new_cards_per_day = request.POST['new_cards_per_day']
+                        our_pile=Pile.objects.get(pile_id=our_pile_id)
+                        our_pile.pile_name = new_pile_name
+                        our_pile.new_per_day = new_cards_per_day
+                        our_pile.save()
+                        success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
+                        return HttpResponseRedirect(success_page)
+                else:
+                    form = EditPile()
+                return render(request, 'learning_app/edit_pile.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+            else:
+                return render(request, 'learning_app/not_auth.html', {})   
+        else:
+            return render(request, 'learning_app/not_auth.html', {})
     else:
-        form = EditPile()
-    return render(request, 'learning_app/edit_pile.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+        return render(request, 'learning_app/not_auth.html', {})
+
 
 def add_card(request, pile_id, user_id):
     if request.user.is_authenticated:
         if request.user.id == user_id:
-            our_pile_id=pile_id
-            if request.method == 'POST':
-                form = AddCard(request.POST)
-                if form.is_valid():
-                    cards_in_pile=Card.objects.filter(pile_id=our_pile_id).order_by('-card_id')
-                    if len(cards_in_pile) == 0:
-                        new_card_id=1
-                    else:
-                        new_card_id=cards_in_pile[0].card_id+1
-                    new_card_first_lng = request.POST['first_lng']
-                    new_card_second_lng = request.POST['second_lng']
-                    new_card = Card(card_id=new_card_id, pile_id=pile_id, first_lng=new_card_first_lng, second_lng=new_card_second_lng)
-                    new_card.save()
-                    success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
-                    #return HttpResponseRedirect(success_page)
-                    return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+            current_user_id = request.user.id
+            my_pile = Pile.objects.get(pile_id=pile_id)
+            user_of_this_pile = my_pile.user_id
+            if request.user.id == user_of_this_pile:
+                our_pile_id=pile_id
+                if request.method == 'POST':
+                    form = AddCard(request.POST)
+                    if form.is_valid():
+                        cards_in_pile=Card.objects.filter(pile_id=our_pile_id).order_by('-card_id')
+                        if len(cards_in_pile) == 0:
+                            new_card_id=1
+                        else:
+                            new_card_id=cards_in_pile[0].card_id+1
+                        new_card_first_lng = request.POST['first_lng']
+                        new_card_second_lng = request.POST['second_lng']
+                        new_card = Card(card_id=new_card_id, pile_id=pile_id, first_lng=new_card_first_lng, second_lng=new_card_second_lng)
+                        new_card.save()
+                        success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
+                        #return HttpResponseRedirect(success_page)
+                        return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+                else:
+                    form = AddCard()
+                return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
             else:
-                form = AddCard()
-            return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+                return render(request, 'learning_app/not_auth.html', {})   
         else:
             return render(request, 'learning_app/not_auth.html', {})
     else:
