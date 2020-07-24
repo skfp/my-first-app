@@ -1,11 +1,14 @@
 <html>
 <body>
-    You are now learning from pile: {{pile_name}}
+    You are now learning cards from pile: {{pile_name}}
     <br>
     <br>
     <a href="{% url 'learn' user_id=user_id pile_id=our_pile_id previous_id=0 previous_ans='X' %}">Start</a>
+    <br>
     <a href="{% url 'edit_pile' user_id=user_id pile_id=our_pile_id %}">Edit this pile</a>
+    <br>
     <a href="{% url 'add_card' user_id=user_id pile_id=our_pile_id  %}">Add a card to this pile</a>
+    <br>
     <br>
     Cards in a pile: {{count_all}}
     <br>
@@ -26,5 +29,8 @@
     <br>
     <br>
     <a href="{% url 'increase' user_id=user_id pile_id=our_pile_id  %}">Increase number of new cards for today learning</a>
+    <br>
+    <br>
+    <a href="{% url 'choose' user_id=user_id%}">Back</a>
 </body>
 </html>

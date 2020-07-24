@@ -318,12 +318,18 @@ def handle_login(request,u,p):
 
 
 def choose(request,user_id):
-    if user_id == 0:
-        return render(request, 'learning_app/not_auth.html', {})
+    if request.user.is_authenticated:
+        if request.user.id == user_id:
+            if user_id == 0:
+                return render(request, 'learning_app/not_auth.html', {})
+            else:
+                pile_list=Pile.objects.filter(user_id=user_id)
+                pile_list_dict={'pile_list':pile_list,'user_id':user_id}
+                return render(request, 'learning_app/choose.html', pile_list_dict)
+        else:
+            return render(request, 'learning_app/not_auth.html', {})
     else:
-        pile_list=Pile.objects.filter(user_id=user_id)
-        pile_list_dict={'pile_list':pile_list,'user_id':user_id}
-        return render(request, 'learning_app/choose.html', pile_list_dict)
+        return render(request, 'learning_app/not_auth.html', {})
 
 
 def create_new_pile_from_file(user_id,pile_name,file_name,new_cards_per_day):
