@@ -258,25 +258,32 @@ def edit_pile(request, pile_id, user_id):
     return render(request, 'learning_app/edit_pile.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
 
 def add_card(request, pile_id, user_id):
-    our_pile_id=pile_id
-    if request.method == 'POST':
-        form = AddCard(request.POST)
-        if form.is_valid():
-            cards_in_pile=Card.objects.filter(pile_id=our_pile_id).order_by('-card_id')
-            if len(cards_in_pile) == 0:
-                new_card_id=1
+    if request.user.is_authenticated:
+        if request.user.id == user_id:
+            our_pile_id=pile_id
+            if request.method == 'POST':
+                form = AddCard(request.POST)
+                if form.is_valid():
+                    cards_in_pile=Card.objects.filter(pile_id=our_pile_id).order_by('-card_id')
+                    if len(cards_in_pile) == 0:
+                        new_card_id=1
+                    else:
+                        new_card_id=cards_in_pile[0].card_id+1
+                    new_card_first_lng = request.POST['first_lng']
+                    new_card_second_lng = request.POST['second_lng']
+                    new_card = Card(card_id=new_card_id, pile_id=pile_id, first_lng=new_card_first_lng, second_lng=new_card_second_lng)
+                    new_card.save()
+                    success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
+                    #return HttpResponseRedirect(success_page)
+                    return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
             else:
-                new_card_id=cards_in_pile[0].card_id+1
-            new_card_first_lng = request.POST['first_lng']
-            new_card_second_lng = request.POST['second_lng']
-            new_card = Card(card_id=new_card_id, pile_id=pile_id, first_lng=new_card_first_lng, second_lng=new_card_second_lng)
-            new_card.save()
-            success_page='/'+str(user_id)+'/'+'start/'+str(pile_id)
-            #return HttpResponseRedirect(success_page)
+                form = AddCard()
             return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+        else:
+            return render(request, 'learning_app/not_auth.html', {})
     else:
-        form = AddCard()
-    return render(request, 'learning_app/add_card.html', {'form': form, 'pile_id': our_pile_id, 'user_id': user_id})
+        return render(request, 'learning_app/not_auth.html', {})
+
 
 def handle_login(request,u,p):
     user = authenticate(request, username=u, password=p)
@@ -314,14 +321,21 @@ def create_new_pile_from_file(user_id,pile_name,file_name,new_cards_per_day):
 
 
 def create_new_pile(request,user_id):
-    if request.method == 'POST':
-        form = CreateNewPileFromOurPiles(request.POST)
-        if form.is_valid():
-            create_new_pile_from_file(user_id,request.POST['pile_name'],request.POST['file_name'],request.POST['new_cards_per_day'])
-            return HttpResponseRedirect('/home/')
+    if request.user.is_authenticated:
+        if request.user.id == user_id:
+            if request.method == 'POST':
+                form = CreateNewPileFromOurPiles(request.POST)
+                if form.is_valid():
+                    create_new_pile_from_file(user_id,request.POST['pile_name'],request.POST['file_name'],request.POST['new_cards_per_day'])
+                    return HttpResponseRedirect('/home/')
+            else:
+                form = CreateNewPileFromOurPiles()
+            return render(request, 'create_new_pile.html', {'form': form, 'user_id': user_id})
+        else:
+            return render(request, 'learning_app/not_auth.html', {})
     else:
-        form = CreateNewPileFromOurPiles()
-    return render(request, 'create_new_pile.html', {'form': form, 'user_id': user_id})
+        return render(request, 'learning_app/not_auth.html', {})
+
 
 def refresh_new_cards_today_value():
     all_piles = Pile.objects.all()
@@ -333,12 +347,4 @@ def refresh_new_cards_today_value():
 #refresh_new_cards_today_value()
 
 
-from learning_app.models import Card,AppUser,Answer,Pile
-all_piles = Pile.objects.all()
-for i in all_piles:
-    all_new_cards = Card.objects.filter(pile_id = i.pile_id, card_type__in=["NEW","N"]) 
-    all_new_cards_count = len(all_new_cards)
-    new_value = min(all_new_cards_count, i.new_per_day)
-    i.new_left_today = new_value
-    i.save()
 
