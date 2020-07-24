@@ -36,13 +36,14 @@ def start(request, pile_id, user_id):
     our_pile_id=pile_id
     one_pile_object=Pile.objects.get(pile_id=pile_id) 
     pile_name=one_pile_object.pile_name
-    random_id=randrange(600)
-    one_card_object=Card.objects.get(card_id=random_id) 
+    #random_id=randrange(600)
+    #one_card_object=Card.objects.get(card_id=random_id) 
     count_all = len(Card.objects.filter(pile_id=pile_id))
     count_new = len(Card.objects.filter(pile_id=pile_id, card_type__in=["N","NEW"]))
     count_norm = len(Card.objects.filter(pile_id=pile_id, card_type__in=["S","M","L","H"]))
     count_wrong = len(Card.objects.filter(pile_id=pile_id, card_type="W"))
-    one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
+    #one_card= {'one_card_object': one_card_object, 'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
+    one_card= {'our_pile_id':our_pile_id, 'user_id':user_id, 'pile_name':pile_name,
     'count_all':count_all, 'count_new':count_new, 'count_norm':count_norm, 'count_wrong':count_wrong}
     return render(request, 'learning_app/start.html', one_card)
 
