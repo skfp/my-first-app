@@ -64,10 +64,6 @@ def learn(request, user_id, pile_id, previous_id, previous_ans):
                     NewAnswerRecord.save()
                     previous_card_object=Card.objects.get(card_id=previous_id, pile_id=pile_id) 
                 
-                is_last=False
-                
-                if my_pile.new_left_today + my_pile.normal_left_today + my_pile.wrong_left_today == 1:
-                    is_last=True
                 if previous_ans!="X":
                     if previous_card_object.card_type in ["N","NEW"]:
                     #if one_card_object.card_type in ["N","NEW"]:
@@ -103,33 +99,36 @@ def learn(request, user_id, pile_id, previous_id, previous_ans):
                     next_tz=timezone.now() + timezone.timedelta(days=2)
                     previous_card_object.next_learn_date=date(next_tz.year,next_tz.month,next_tz.day)
                     previous_card_object.save()
-
-                #possible_cards: nowe + zle + zwykle_z_dzisiejsza_data      datetime.date(2005, 1, 1))
-                possible_cards_new=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N"]) 
-                possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
-                possible_cards_wrong=Card.objects.filter(pile_id=pile_id,card_type="W") 
-                #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id)
-                #count_new=max(0,len(possible_cards_new))
-                count_new=min(my_pile.new_left_today,len(possible_cards_new))
-                count_normal=len(possible_cards_normal)
-                count_wrong=len(possible_cards_wrong)
-                count_possible=count_new+count_normal+count_wrong
-                random_number=randrange(count_possible)
-                if random_number + 1 <= count_new:
-                    id_list=[x.card_id for x in possible_cards_new]
-                    random_id=id_list[randrange(len(possible_cards_new))]
-                elif count_normal + count_new >= random_number + 1 > count_new:
-                    id_list=[x.card_id for x in possible_cards_normal]
-                    random_id=id_list[randrange(len(possible_cards_normal))]
+                is_last=False
+                if my_pile.new_left_today + my_pile.normal_left_today + my_pile.wrong_left_today == 0:
+                    is_last=True
+                    return render(request, 'learning_app/end.html', {'user_id':user_id})
                 else:
-                    id_list=[x.card_id for x in possible_cards_wrong]
-                    random_id=id_list[randrange(len(possible_cards_wrong))]
-                one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id)
-
-                one_pile_object=Pile.objects.get(pile_id=pile_id)
-                user_id=one_pile_object.user_id
-                one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last,'user_id':user_id, 'current_user_id':current_user_id }
-                return render(request, 'learning_app/learn.html', one_context)
+                    #possible_cards: nowe + zle + zwykle_z_dzisiejsza_data      datetime.date(2005, 1, 1))
+                    possible_cards_new=Card.objects.filter(pile_id=pile_id,card_type__in=["NEW","N"]) 
+                    possible_cards_normal=Card.objects.filter(pile_id=pile_id,card_type__in=["S","M","L","H"],next_learn_date=date.today())
+                    possible_cards_wrong=Card.objects.filter(pile_id=pile_id,card_type="W") 
+                    #possible_cards=Card.objects.get(card_id=random_id, pile_id=pile_id)
+                    #count_new=max(0,len(possible_cards_new))
+                    count_new=min(my_pile.new_left_today,len(possible_cards_new))
+                    count_normal=len(possible_cards_normal)
+                    count_wrong=len(possible_cards_wrong)
+                    count_possible=count_new+count_normal+count_wrong
+                    random_number=randrange(count_possible)
+                    if random_number + 1 <= count_new:
+                        id_list=[x.card_id for x in possible_cards_new]
+                        random_id=id_list[randrange(len(possible_cards_new))]
+                    elif count_normal + count_new >= random_number + 1 > count_new:
+                        id_list=[x.card_id for x in possible_cards_normal]
+                        random_id=id_list[randrange(len(possible_cards_normal))]
+                    else:
+                        id_list=[x.card_id for x in possible_cards_wrong]
+                        random_id=id_list[randrange(len(possible_cards_wrong))]
+                    one_card_object=Card.objects.get(card_id=random_id, pile_id=pile_id)
+                    one_pile_object=Pile.objects.get(pile_id=pile_id)
+                    user_id=one_pile_object.user_id
+                    one_context = {'one_card_object': one_card_object, 'one_pile_object':one_pile_object, 'is_last':is_last,'user_id':user_id, 'current_user_id':current_user_id }
+                    return render(request, 'learning_app/learn.html', one_context)
             else:
                 return render(request, 'learning_app/not_auth.html', {})
         else:
