@@ -230,9 +230,14 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('your_login')
             raw_password = form.cleaned_data.get('your_pass')
-            #mail = form.cleaned_data.get('your_mail')
+            mail = form.cleaned_data.get('your_mail')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
+            all_users = AppUser.objects.all().order_by('-user_id')
+            user_id = all_users[0].user_id + 1
+            new_app_user = AppUser(user_id = user_id, user_name = username, user_login = username,
+            user_password = raw_password, user_mail = mail)
+            new_app_user.save()
             return redirect('home')
             #create_user(request.POST['your_mail'],request.POST['your_login'],request.POST['your_pass'])
             #return HttpResponseRedirect('/user_created/')
