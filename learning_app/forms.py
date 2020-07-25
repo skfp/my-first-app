@@ -31,10 +31,10 @@ class CreateNewPileFromOurPiles(forms.Form):
     new_cards_per_day = forms.IntegerField()
 
 
-#class CreateUserForm(forms.Form):
-#    your_mail = forms.EmailField(max_length=80)
-#    your_login = forms.CharField(max_length=20)
-#    your_pass = forms.CharField(max_length=50)
+class CreateUserForm(forms.Form):
+    your_mail = forms.EmailField(max_length=80)
+    your_login = forms.CharField(max_length=20)
+    your_pass = forms.CharField(widget=forms.PasswordInput(), max_length=50)
 
 #class SignUpForm(UserCreationForm):
 #    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')

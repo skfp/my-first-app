@@ -15,7 +15,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.staticfiles.storage import staticfiles_storage
 
-from .forms import UploadFileForm, LoginForm, EditPile, AddCard, CreateNewPileFromOurPiles, IncreaseNumberOfNewCards#, CreateUserForm
+from .forms import UploadFileForm, LoginForm, EditPile, AddCard, CreateNewPileFromOurPiles, IncreaseNumberOfNewCards, CreateUserForm
 
 # Imaginary function to handle an uploaded file.
 #from somewhere import handle_uploaded_file
@@ -164,15 +164,15 @@ def not_auth(request):
     return render(request, 'learning_app/not_auth.html', {})
 
 
-def minus_one_new(request):
-    my_user = AppUser.objects.get(user_id=1)
-    my_user.new_left_today = my_user.new_left_today-1
-    my_user.save()
-    random_id=randrange(600)
-    one_card_object=Card.objects.get(card_id=random_id)
-    one_user_object=AppUser.objects.get(user_id=1) 
-    one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
-    return render(request, 'learning_app/learn_q.html', one_context)
+# def minus_one_new(request):
+#     my_user = AppUser.objects.get(user_id=1)
+#     my_user.new_left_today = my_user.new_left_today-1
+#     my_user.save()
+#     random_id=randrange(600)
+#     one_card_object=Card.objects.get(card_id=random_id)
+#     one_user_object=AppUser.objects.get(user_id=1) 
+#     one_context = {'one_user_object': one_user_object,'one_card_object': one_card_object}
+#     return render(request, 'learning_app/learn_q.html', one_context)
 
 def load(request):
     virgin_data=pd.read_csv("learning_app/static/data/input.csv",sep=";")
@@ -216,21 +216,17 @@ def upload(request):
     return render(request, 'upload.html', {'form': form})
 
 
-def create_user(mail,login,password):
-    user = User.objects.create_user(login, mail, password)
-
-def user_created(request):
-    return render(request, 'user_created.html')
-
 @csrf_protect
-def register(request):
+def register_view(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            #form.save()
             username = form.cleaned_data.get('your_login')
             raw_password = form.cleaned_data.get('your_pass')
             mail = form.cleaned_data.get('your_mail')
+            new_user = User.objects.create_user(username, mail, raw_password)
+            new_user.save()
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             all_users = AppUser.objects.all().order_by('-user_id')
@@ -243,7 +239,7 @@ def register(request):
             #return HttpResponseRedirect('/user_created/')
     else:
         form = CreateUserForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'register_view.html', {'form': form})
 
 
 def login_view(request):
