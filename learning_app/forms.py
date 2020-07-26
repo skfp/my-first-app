@@ -24,7 +24,8 @@ class IncreaseNumberOfNewCards(forms.Form):
     increase_value = forms.IntegerField()
 
 CHOICES = [('-','Create empty pile'),
-    ('verbs_eng.csv','English irregular verbs'),('verbs_ger.csv','German irregular verbs')]
+    ('verbs_eng.csv','English irregular verbs'),('verbs_ger.csv','German irregular verbs'),
+    ('lt.csv','Polish-Lithuanian Cards')]
 class CreateNewPileFromOurPiles(forms.Form):
     pile_name = forms.CharField(max_length=200)
     file_name = forms.CharField(label='Pile content', widget=forms.RadioSelect(choices=CHOICES))
