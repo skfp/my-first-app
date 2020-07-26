@@ -230,7 +230,10 @@ def register_view(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             all_users = AppUser.objects.all().order_by('-user_id')
-            user_id = all_users[0].user_id + 1
+            if len(all_users) == 0:
+                user_id = 1
+            else:
+                user_id = all_users[0].user_id + 1
             new_app_user = AppUser(user_id = user_id, user_name = username, user_login = username,
             user_password = raw_password, user_mail = mail)
             new_app_user.save()

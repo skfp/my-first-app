@@ -30,7 +30,7 @@ SECRET_KEY = '6_c7m_d44+qr0ryls=1%1oaoz)v!*qjr@qgxe@=ss3k%^1=mqi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', 'my-app-sp-03.herokuapp.com']
 
 
 # Application definition
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'mysite01.wsgi.application'
 # }
 
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
