@@ -29,7 +29,10 @@ def home(request):
         user_id=0
     pile_list=Pile.objects.filter(user_id=1)
     pile_list_dict={'pile_list':pile_list, 'user_id':user_id}
-    return render(request, 'learning_app/home.html', pile_list_dict)
+    if request.user.is_authenticated:
+        return render(request, 'learning_app/home.html', pile_list_dict)
+    else:
+        return render(request, 'learning_app/not_auth.html', pile_list_dict)
 
 
 def start(request, pile_id, user_id):
