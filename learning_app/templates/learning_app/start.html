@@ -1,36 +1,73 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'learning_app/my_css.css' %}">
+        <meta charset="utf-8">
+    </head>
 <body>
-    You are now learning cards from pile: {{pile_name}}
-    <br>
-    <br>
-    <a href="{% url 'learn' user_id=user_id pile_id=our_pile_id previous_id=0 previous_ans='X' %}">Start</a>
-    <br>
-    <a href="{% url 'edit_pile' user_id=user_id pile_id=our_pile_id %}">Edit this pile</a>
-    <br>
-    <a href="{% url 'add_card' user_id=user_id pile_id=our_pile_id  %}">Add a card to this pile</a>
-    <br>
-    <br>
-    Cards in a pile: {{count_all}}
-    <br>
-    New cards left to learn: {{count_new}}
-    <br>
-    Cards learned: {{count_norm}}
-    <br>
-    Cards with last answer "wrong": {{count_wrong}}
-    <br>
-    <br>
-    Left for today:
-    <br>
-    New cards left: {{today_count_new}}
-    <br>
-    Other cards left: {{today_count_norm}}
-    <br>
-    Wrong cards left: {{count_wrong}}
-    <br>
-    <br>
-    <a href="{% url 'increase' user_id=user_id pile_id=our_pile_id  %}">Increase number of new cards for today learning</a>
-    <br>
-    <br>
-    <a href="{% url 'choose' user_id=user_id%}">Back</a>
+    <div class="empty_header_start">
+        <div class="empty_header_start_subheader">
+            <a href="{% url 'increase' user_id=user_id pile_id=our_pile_id  %}">Increase number of new cards for today learning</a>
+        </div>
+        <div class="empty_header_start_subheader">
+            <a href="{% url 'edit_pile' user_id=user_id pile_id=our_pile_id %}">Edit this pile</a>
+        </div>
+        <div class="empty_header_start_subheader">
+            <a href="{% url 'add_card' user_id=user_id pile_id=our_pile_id  %}">Add a card to this pile</a>
+        </div>
+        <div class="empty_header_start_subheader">
+            <a href="{% url 'choose' user_id=user_id %}">Go back</a>
+        </div>
+    </div>
+    <div class="empty_header_start">
+        <div class="pile_name">{{pile_name}}</div>
+    </div>
+    <div class="empty_header_start">
+        <div class="sign_button"><a href="{% url 'learn' user_id=user_id pile_id=our_pile_id previous_id=0 previous_ans='X' %}">Start learning</a></div>
+    </div>
+    <div class="start_tables">
+        <div class="start_left_right">
+            <table style="width:100%">
+                <tr>
+                    <td>Cards in a pile</td>
+                    <td>{{count_all}}</td>
+                </tr>
+                <tr>
+                    <td>New cards left to learn</td>
+                    <td>{{count_new}}</td>
+                </tr>
+                <tr>
+                    <td>Cards learned</td>
+                    <td>{{count_norm}}</td>
+                </tr>
+                <tr>
+                    <td>Cards with last answer "wrong"</td>
+                    <td>{{count_wrong}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="start_left_right">
+            <table style="width:100%">
+                <tr>
+                    <td>Left for today:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>New cards left</td>
+                    <td>{{today_count_new}}</td>
+                </tr>
+                <tr>
+                    <td>Other cards left</td>
+                    <td>{{today_count_norm}}</td>
+                </tr>
+                <tr>
+                    <td>Wrong cards left</td>
+                    <td>{{count_wrong}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="empty_footer_start"></div>
 </body>
 </html>

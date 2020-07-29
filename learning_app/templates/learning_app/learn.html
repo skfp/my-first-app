@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="my_language">
-        <div class="my_language_inside_left"></div>
+        <div class="my_language_inside_left"> <a href="{% url 'start' user_id=user_id pile_id=one_pile_object.pile_id  %}">Go back</a>  </div>
         <div class="my_language_inside">{{one_card_object.first_lng}}   </div>
         <div class="my_language_inside_right">
         <div class="new_count">{{one_pile_object.new_left_today}}</div>

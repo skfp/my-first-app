@@ -8,34 +8,34 @@ class UploadFileForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=50)
-    password = forms.CharField(widget=forms.PasswordInput(), max_length=50)
-    #password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'password'}), max_length=50) #, widget=forms.TextInput(attrs={'placeholder': 'password'}))
+    
 
 class EditPile(forms.Form):
-    new_pile_name = forms.CharField(max_length=50)
-    new_cards_per_day = forms.IntegerField()
+    new_pile_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'pile name'}))
+    new_cards_per_day = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'new cards per day'}))
 
 class AddCard(forms.Form):
-    first_lng = forms.CharField(max_length=200)
-    second_lng = forms.CharField(max_length=200)
+    first_lng = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'first language'}))
+    second_lng = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'second language'}))
 
 class IncreaseNumberOfNewCards(forms.Form):
-    increase_value = forms.IntegerField()
+    increase_value = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'number of additional cards'}))
 
 CHOICES = [('-','Create empty pile'),
-    ('verbs_eng.csv','English irregular verbs'),('verbs_ger.csv','German irregular verbs'),
-    ('lt.csv','Polish-Lithuanian Cards')]
+    ('verbs_eng.csv','English irregular verbs (PL)'),('verbs_ger.csv','German irregular verbs (PL)'),
+    ('lt.csv','Lithuanian words (PL)')]
 class CreateNewPileFromOurPiles(forms.Form):
-    pile_name = forms.CharField(max_length=200)
+    pile_name = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'placeholder': 'pile name'}))
     file_name = forms.CharField(label='Pile content', widget=forms.RadioSelect(choices=CHOICES))
-    new_cards_per_day = forms.IntegerField()
+    new_cards_per_day = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'new cards per day'}))
 
 
 class CreateUserForm(forms.Form):
-    your_mail = forms.EmailField(max_length=80)
-    your_login = forms.CharField(max_length=20)
-    your_pass = forms.CharField(widget=forms.PasswordInput(), max_length=50)
+    your_mail = forms.EmailField(max_length=80, widget=forms.TextInput(attrs={'placeholder': 'email address'}))
+    your_login = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'placeholder': 'login'}))
+    your_pass = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'password'}), max_length=50)
 
 #class SignUpForm(UserCreationForm):
 #    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')

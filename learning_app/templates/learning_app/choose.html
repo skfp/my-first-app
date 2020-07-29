@@ -1,4 +1,36 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'learning_app/my_css.css' %}">
+        <meta charset="utf-8">
+    </head>
+
+
+    <body>
+        <div class="empty_header_choose">
+            <div class="empty_header_choose_link">
+                <a href="{% url 'create_new_pile' user_id=user_id %}">Create a pile from our file</a>
+            </div>
+            <div class="empty_header_choose_link">
+                <a href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+        <div class="choose_content">  
+            <div class="choose_content_row">
+                Choose your pile: 
+            </div>
+            <br>
+            {% for p in pile_list %}
+            <div class="choose_content_row">
+                <a href="{% url 'start' pile_id=p.pile_id user_id=p.user_id%}">{{p.pile_name}}</a>
+            </div>
+            {% endfor %}
+        </div>  
+        <div class="empty_footer_choose"></div>
+    </body>
+</html>
+
 <body>
     <a href="{% url 'upload' %}">Upload</a>
     <br>

@@ -1,9 +1,42 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'learning_app/my_css.css' %}">
+        <meta charset="utf-8">
+    </head>
+
 <body>
-    <form action="{% url 'login_view' %}" method="POST" enctype="multipart/form-data" name="LoginForm">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="submit"/>
-        </form>
+    <div class="empty_header"></div>
+    <div class="login_register_form"> 
+        <div class="login_left"></div>
+        <div class="login_middle">
+            <div class="sign">Sign in</div>
+            <form action="{% url 'login_view' %}" method="POST" enctype="multipart/form-data" name="LoginForm">
+                {% csrf_token %}
+                {{ form.username.errors }}
+                    <label for="{{ form.username.id_for_label }}"></label> {{ form.username }}
+                
+                <br>
+                {{ form.password.errors }}
+                    <label for="{{ form.password.id_for_label }}"></label> {{ form.password }}
+                
+                <br>
+                <div class="input_button">
+                    <input type="submit" value="submit"/>
+                </div>
+            </form>
+        </div>
+        <div class="login_right"></div>
+    </div>
+    <div class="empty_footer">
+        <div class="sign">
+            You don't have an account?</div>
+            <br>
+            <div class="sign_button">
+            <a href="{% url 'register_view' %}">Sign up</a>
+        </div>
+        </div>
+    </div>
 </body>
 </html>

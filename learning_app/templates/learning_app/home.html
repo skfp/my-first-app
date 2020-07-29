@@ -1,12 +1,16 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'learning_app/my_css.css' %}">
+        <meta charset="utf-8">
+    </head>
 <body>
-    <a href="{% url 'choose' user_id=user_id%}">Start</a>
-    <br>
-    <a href="{% url 'register_view' %}">Register</a>
-    <br>
-    <a href="{% url 'login_view' %}">Login</a>
-    <br>
-    <a href="{% url 'logout' %}">Logout</a>
-    <br>
+    <div class="sign"></div>
+    <div class="sign_button"><a href="{% url 'choose' user_id=user_id%}">Start</a></div>
+    <div class="sign"></div>
+    <div class="sign_button"><a href="{% url 'logout' %}">Logout</a></div>
 </body>
 </html>
+
+

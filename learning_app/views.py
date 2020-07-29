@@ -32,7 +32,8 @@ def home(request):
     if request.user.is_authenticated:
         return render(request, 'learning_app/home.html', pile_list_dict)
     else:
-        return render(request, 'learning_app/not_auth.html', pile_list_dict)
+        return HttpResponseRedirect('/login_view/')
+        #return render(request, 'learning_app/login_view.html', pile_list_dict)
 
 
 def start(request, pile_id, user_id):

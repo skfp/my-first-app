@@ -1,7 +1,14 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'learning_app/my_css.css' %}">
+        <meta charset="utf-8">
+    </head>
 <body>
-    <p>The end</p>
-    <p>You have finished your daily practice</p>
-    <p><a href="{% url 'choose' user_id=user_id%}">Go back</a></p>
+    <div class="sign"></div>
+    <div class="sign">The end</div>
+    <div class="sign">You have finished your daily practice</div>
+<div class="sign_button"><a href="{% url 'choose' user_id=user_id%}">Go back</a></div>
 </body>
 </html>

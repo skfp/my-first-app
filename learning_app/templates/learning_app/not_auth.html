@@ -1,6 +1,15 @@
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'learning_app/my_css.css' %}">
+        <meta charset="utf-8">
+    </head>
 <body>
-    <p>You are not allowed to view this page.</p>
-    <a href="/home/">Home page</a>
+    <div class="sign"></div>
+    <div class="sign">You are not allowed to view this page.</div>
+<div class="sign_button"><a href="{% url 'home' %}">Go back</a></div>
 </body>
 </html>
+
+
